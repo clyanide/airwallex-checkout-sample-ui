@@ -1,10 +1,9 @@
 import React from 'react';
+import { PaymentDetailCard } from './components/data-display';
 
 function App() {
   return (
-    <>
-      <div>Hello world</div>
-    </>
+    <PaymentDetailCard />
   );
 }
 
