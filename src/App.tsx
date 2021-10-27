@@ -1,9 +1,10 @@
 import React from 'react';
-import { PaymentDetailCard } from './components/data-display';
+import { CardPayment } from './components/data-display';
+import { CheckoutNavBar } from './components/navigation';
 
 function App() {
   return (
-    <PaymentDetailCard />
+    <CheckoutNavBar />
   );
 }
 

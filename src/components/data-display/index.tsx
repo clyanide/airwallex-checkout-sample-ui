@@ -1,3 +1,3 @@
-import PaymentDetailCard from './PaymentDetailCard/PaymentDetailCard';
+import CardPayment from './PaymentDetailCard/CardPayment';
 
-export { PaymentDetailCard };
+export { CardPayment };

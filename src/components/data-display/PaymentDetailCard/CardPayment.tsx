@@ -6,15 +6,15 @@ import {
   confirmPaymentIntent,
 } from 'airwallex-payment-elements';
 
-const intentId = 'replace-with-your-intent-id';
-const clientSecret = 'replace-with-your-client-secret';
+const intentId = 'int_hkdmwj4wkg3nws92hip';
+const clientSecret = 'eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzUyOTYzNzcsImV4cCI6MTYzNTI5OTk3NywiYWNjb3VudF9pZCI6ImJjMjMxMTBhLTI2ZDItNDI0MC05NGVmLWUyMGY4YTI1ZDdlOSIsImRhdGFfY2VudGVyX3JlZ2lvbiI6IkhLIiwiaW50ZW50X2lkIjoiaW50X2hrZG13ajR3a2czbndzOTJoaXAiLCJwYWRjIjoiSEsifQ.K5luE9sDZY7nQtpquoi73XZC7Md8Uf1a7OivaeYvZ18';
 
-const PaymentDetailCard = () => {
+const CardPayment = () => {
   const [cardNumberReady, setCardNumberReady] = useState(false);
   const [cvcReady, setCvcReady] = useState(false);
   const [expiryReady, setExpiryReady] = useState(false);
 
-  const [cardNumberComplete, setCardNumberComplete] = useState(true);
+  const [cardNumberComplete, setCardNumberComplete] = useState(false);
   const [cvcComplete, setCvcComplete] = useState(false);
   const [expiryComplete, setExpiryComplete] = useState(false);
 
@@ -186,4 +186,4 @@ const PaymentDetailCard = () => {
   );
 };
 
-export default PaymentDetailCard;
+export default CardPayment;
