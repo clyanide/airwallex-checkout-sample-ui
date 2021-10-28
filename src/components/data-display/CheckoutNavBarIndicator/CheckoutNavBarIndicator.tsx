@@ -6,7 +6,7 @@ import { ReactComponent as TwoActiveIcon } from '../../../assets/svg/two-active.
 import { ReactComponent as TwoInactiveIcon } from '../../../assets/svg/two-inactive.svg';
 import { ReactComponent as ThreeActiveIcon } from '../../../assets/svg/three-active.svg';
 import { ReactComponent as ThreeInactiveIcon } from '../../../assets/svg/three-inactive.svg';
-import styles from './CheckoutNavBarButton.module.scss';
+import styles from './CheckoutNavBarIndicator.module.scss';
 
 const ACTIVE_ICONS = {
   one: <OneActiveIcon />,

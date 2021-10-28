@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
 import { Payment, BasketSummary } from '../../components/checkout';
-import { getAuthToken } from '../../api/auth.js';
+import { CheckoutNavBar, Header } from '../../components/navigation';
 
-const Checkout = () => <BasketSummary />;
+const Checkout = () => <Payment />;
 
 export default Checkout;

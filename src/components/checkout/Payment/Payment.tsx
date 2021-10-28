@@ -5,6 +5,9 @@ import {
   getElement,
   confirmPaymentIntent,
 } from 'airwallex-payment-elements';
+import { PaymentMethodSelect } from '../../select';
+import { PaymentConfirmButton, PaymentBackButton } from '../../buttons';
+import styles from './Payment.module.scss';
 
 const intentId = 'int_hkdmwj5wkg3nws92hip';
 const clientSecret = 'eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzUyOTYzNzcsImV4cCI6MTYzNTI5OTk3NywiYWNjb3VudF9pZCI6ImJjMjMxMTBhLTI2ZDItNDI0MC05NGVmLWUyMGY4YTI1ZDdlOSIsImRhdGFfY2VudGVyX3JlZ2lvbiI6IkhLIiwiaW50ZW50X2lkIjoiaW50X2hrZG13ajR3a2czbndzOTJoaXAiLCJwYWRjIjoiSEsifQ.K5luE9sDZY7nQtpquoi73XZC7Md8Uf1a7OivaeYvZ18';
@@ -48,7 +51,7 @@ const Payment = () => {
       expiryEle?.mount('expiry');
     });
 
-    const onReady = (event:any) => {
+    const onReady = (event: any) => {
       const { type } = event.detail;
       if (type === 'cardNumber') {
         setCardNumberReady(true);
@@ -78,7 +81,7 @@ const Payment = () => {
       const { type } = event.detail;
       setInputErrorMessage({
         ...inputErrorMessage,
-        [type]: '', // Example: clear input error message
+        [type]: '',
       });
     };
 
@@ -118,7 +121,7 @@ const Payment = () => {
       },
     })
       .then((response) => {
-        setIsSubmitting(false); // Example: reset loading state
+        setIsSubmitting(false);
         window.alert(`Confirm success with ${JSON.stringify(response)}`);
       })
       .catch((error) => {
@@ -139,48 +142,49 @@ const Payment = () => {
     height: '28px',
   };
 
+  const paymentMethods = ['Card', 'Paypal', 'Wechat'];
+
   return (
     <div>
-      <h2>Split Card element integration</h2>
-      {/* Example: set loading state before elements are ready */}
+      <p>Payment</p>
+      <div>
+        <PaymentMethodSelect
+          paymentMethods={paymentMethods}
+          selectedIndex={1}
+        />
+      </div>
+
       {!allElementsReady && <p>Loading...</p>}
-      {/* Example below: display response message block */}
+
       {errorMessage.length > 0 && <p id="error">{errorMessage}</p>}
-      {/* Styling example above: only displays block when all elements are ready */}
-      <div style={{ display: allElementsReady ? 'block' : 'none' }}>
-        {/* STEP #3a: Add empty containers for the card elements to be placed into */}
-        <div className="field-container">
-          <div className="field-label">Card number</div>
-          <div
-            id="cardNumber"
-            style={inputStyle} // Example: input styling can be moved to css
-          />
-          <p style={{ color: 'red' }}>{inputErrorMessage.cardNumber}</p>
+
+      <div>
+        <div>
+          <div>Card number</div>
+          <div id="cardNumber" className={styles.input} />
+          <p>{inputErrorMessage.cardNumber}</p>
         </div>
-        <div className="field-container">
-          <div className="field-label">Expiry</div>
-          <div
-            id="expiry"
-            style={inputStyle} // Example: input styling can be moved to css
-          />
-          <p style={{ color: 'red' }}>{inputErrorMessage.expiry}</p>
+        <div>
+          <div>
+            <div>Expiry</div>
+            <div id="expiry" className={styles.input} />
+            <p>{inputErrorMessage.expiry}</p>
+          </div>
+          <div>
+            <div>Cvc</div>
+            <div id="cvc" className={styles.input} />
+            <p>{inputErrorMessage.cvc}</p>
+          </div>
         </div>
-        <div className="field-container">
-          <div className="field-label">Cvc</div>
-          <div
-            id="cvc"
-            style={inputStyle} // Example: input styling can be moved to css
+        <div>
+          <PaymentBackButton />
+          <PaymentConfirmButton
+            onClick={handleConfirm}
+            disabled={!allElementsComplete || isSubmitting}
+            label={isSubmitting ? 'Loading' : 'Confirm payment'}
+            total="$102.50"
           />
-          <p style={{ color: 'red' }}>{inputErrorMessage.cvc}</p>
         </div>
-        {/* STEP #3b: Add a submit button to trigger the payment request */}
-        <button
-          type="button"
-          onClick={handleConfirm}
-          disabled={!allElementsComplete || isSubmitting} // Prevents invalid submissions
-        >
-          {isSubmitting ? 'Loading' : 'Confirm'}
-        </button>
       </div>
     </div>
   );
