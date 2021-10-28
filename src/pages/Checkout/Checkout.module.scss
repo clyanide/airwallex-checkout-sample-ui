@@ -1,4 +1,10 @@
 .body {
-    height: 100%;
-    width: 100%;
+    background-color:gray;
+    height: 100%; 
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    height: calc(100% - 80px);
 }

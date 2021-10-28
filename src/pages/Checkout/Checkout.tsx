@@ -43,7 +43,7 @@ const Checkout = ({ order }: any) => {
   return (
     <div className={styles.body}>
       <Header />
-      <div>
+      <div className={styles.content}>
         <CheckoutNavBar active={activeStep} done={doneSteps} />
         {getStepComponent()}
         <BasketSummary />
