@@ -1,17 +1,17 @@
 import React from 'react';
-import { CheckoutNavBarButton } from '../../buttons';
+import { CheckoutNavBarIndicator } from '..';
 import styles from './CheckoutNavBar.module.scss';
 
 const CheckoutNavBar = () => (
   <div className={styles.background}>
     <div>
-      <CheckoutNavBarButton iconNumber={1} active caption="Your details" />
+      <CheckoutNavBarIndicator iconNumber={1} active caption="Your details" />
     </div>
     <div>
-      <CheckoutNavBarButton />
+      <CheckoutNavBarIndicator />
     </div>
     <div>
-      <CheckoutNavBarButton />
+      <CheckoutNavBarIndicator />
     </div>
 
   </div>
