@@ -1,17 +1,8 @@
-import React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect,
-} from 'react-router-dom';
+import React, { useState } from 'react';
 
-import Checkout from './pages/Checkout/Checkout';
-
-function App() {
-  // Dummy order, populated during shopping, saved in cookies, id generated at payment intent
-  const order = {
+const YourDetails = ({ setDetailsConfirmed }: any) => {
+  // Dummy order populated during shopping and completing details and persisted in cookies
+  const [order, setOrder] = useState({
     id: '',
     products: [{
       code: 'nike147', desc: 'Old school Nike dunks in blue', name: 'Nike Dunks Retro', quantity: 1, unit_price: 310.00,
@@ -31,16 +22,18 @@ function App() {
       email_address: 'john.doe@gmail.com',
       shipping_method: 'Overnight',
     },
+  });
+
+  const handleNextButton = () => {
+    // TODO: Create intent using order and auth token
+    setDetailsConfirmed(true);
   };
-
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/checkout"><Checkout order={order} /></Route>
-        <Route path="/"><Redirect to="/checkout" /></Route>
-      </Switch>
-    </Router>
+    <div>
+      <div>Imagine you have already entered your details on this page</div>
+      <button type="button" onClick={handleNextButton}>Next</button>
+    </div>
   );
-}
+};
 
-export default App;
+export default YourDetails;

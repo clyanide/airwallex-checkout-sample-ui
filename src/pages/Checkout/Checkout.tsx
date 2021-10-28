@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Payment, BasketSummary, Confirmation } from '../../components/checkout';
+import {
+  Payment,
+  BasketSummary,
+  Confirmation,
+  YourDetails,
+} from '../../components/checkout';
 import { CheckoutNavBar, Header } from '../../components/navigation';
 
-const Checkout = () => {
-  const [activeStep, setActiveStep] = useState(2);
-  const [doneSteps, setDoneSteps] = useState({ 1: true, 2: false, 3: false });
+const Checkout = ({ order }: any) => {
+  const [activeStep, setActiveStep] = useState(1);
+  const [doneSteps, setDoneSteps] = useState({ 1: false, 2: false, 3: false });
   const [paymentConfirmed, setPaymentConfirmed] = useState(false);
+  const [detailsConfirmed, setDetailsConfirmed] = useState(false);
 
   const handlePaymentConfirmation = (confirmed: any) => {
     setPaymentConfirmed(confirmed);
@@ -13,13 +19,32 @@ const Checkout = () => {
     setActiveStep(3);
   };
 
+  const handleDetailsConfirmation = (confirmed: any) => {
+    setDetailsConfirmed(confirmed);
+    setDoneSteps({ ...doneSteps, 1: true });
+    setActiveStep(2);
+  };
+
+  const getStepComponent = () => {
+    if (!detailsConfirmed) {
+      return <YourDetails setDetailsConfirmed={handleDetailsConfirmation} />;
+    }
+    if (!paymentConfirmed) {
+      return <Payment setPaymentConfirmed={handlePaymentConfirmation} />;
+    }
+    if (paymentConfirmed) {
+      return <Confirmation />;
+    }
+
+    return undefined;
+  };
+
   return (
     <div>
       <Header />
       <div>
         <CheckoutNavBar active={activeStep} done={doneSteps} />
-        {paymentConfirmed ? <Confirmation />
-          : <Payment setPaymentConfirmed={handlePaymentConfirmation} /> }
+        {getStepComponent()}
         <BasketSummary />
       </div>
     </div>
