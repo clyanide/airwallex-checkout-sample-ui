@@ -161,34 +161,38 @@ const Payment = () => {
 
       {errorMessage.length > 0 && <p id="error">{errorMessage}</p>}
 
-      <div style={{ display: allElementsReady ? 'block' : 'none' }}>
-        <div>
-          <div>Card number</div>
-          <div id="cardNumber" className={styles.input} />
-          <p>{inputErrorMessage.cardNumber}</p>
-        </div>
-        <div>
-          <div>
-            <div>Expiry</div>
-            <div id="expiry" className={styles.input} />
-            <p>{inputErrorMessage.expiry}</p>
+      {selectedPaymentMethod === 'Card'
+        ? (
+          <div style={{ display: allElementsReady ? 'block' : 'none' }}>
+            <div>
+              <div>Card number</div>
+              <div id="cardNumber" className={styles.input} />
+              <p>{inputErrorMessage.cardNumber}</p>
+            </div>
+            <div>
+              <div>
+                <div>Expiry</div>
+                <div id="expiry" className={styles.input} />
+                <p>{inputErrorMessage.expiry}</p>
+              </div>
+              <div>
+                <div>Cvc</div>
+                <div id="cvc" className={styles.input} />
+                <p>{inputErrorMessage.cvc}</p>
+              </div>
+            </div>
+            <div>
+              <PaymentBackButton />
+              <PaymentConfirmButton
+                onClick={handleConfirm}
+                disabled={!allElementsComplete || isSubmitting}
+                label={isSubmitting ? 'Loading' : 'Confirm payment'}
+                total="$102.50"
+              />
+            </div>
           </div>
-          <div>
-            <div>Cvc</div>
-            <div id="cvc" className={styles.input} />
-            <p>{inputErrorMessage.cvc}</p>
-          </div>
-        </div>
-        <div>
-          <PaymentBackButton />
-          <PaymentConfirmButton
-            onClick={handleConfirm}
-            disabled={!allElementsComplete || isSubmitting}
-            label={isSubmitting ? 'Loading' : 'Confirm payment'}
-            total="$102.50"
-          />
-        </div>
-      </div>
+        )
+        : <p>Payment method not supported yet</p>}
     </div>
   );
 };
