@@ -1,8 +1,18 @@
+@mixin body {
+  height: 60px;
+  width: 100px;
+  border-radius: 10px;
+}
+
 .active {
-    border-style: solid;
-    border-color: #dda57a;
+  @include body;
+  border-style: solid;
+  border-color: #dda57a;
 }
 
 .inactive {
-    border-style: solid;
+  @include body;
+  border-style: solid;
+  border-color: #c2c2c2;
+  border-width: 1px;
 }

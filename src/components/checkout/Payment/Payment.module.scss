@@ -5,3 +5,26 @@
   margin-top: 8px;
   height: 28px;
 }
+
+.body {
+  background-color: pink;
+  width: 50%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.heading {
+  font-size: xx-large;
+  font-weight: bold;
+  padding: 0px;
+  margin: 0;
+  padding: 0;
+}
+
+.methods {
+  display: flex;
+  flex-direction: row;
+  span {
+    margin-right: 40px;
+  }
+}

@@ -167,16 +167,19 @@ const Payment = ({ setPaymentConfirmed, order }: any) => {
   const paymentMethods = ['Card', 'Paypal', 'Wechat'];
 
   return (
-    <div>
-      <p>Payment</p>
-      <div>
+    <div className={styles.body}>
+      <p className={styles.heading}>Payment</p>
+      <div className={styles.methods}>
         {paymentMethods.map((method) => (
-          <PaymentMethodSelectCard
-            key={method}
-            paymentMethod={method}
-            selected={method === selectedPaymentMethod}
-            onClick={() => handlePaymentMethodSelect(method)}
-          />
+          <span>
+            <PaymentMethodSelectCard
+              key={method}
+              paymentMethod={method}
+              selected={method === selectedPaymentMethod}
+              onClick={() => handlePaymentMethodSelect(method)}
+            />
+
+          </span>
         ))}
       </div>
 
