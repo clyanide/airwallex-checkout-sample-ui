@@ -8,11 +8,13 @@ import {
 import { PaymentMethodSelectCard } from '../../select';
 import { PaymentConfirmButton, PaymentBackButton } from '../../buttons';
 import styles from './Payment.module.scss';
+import { login } from '../../../api/airwallex/auth';
+import { createPaymentIntent } from '../../../api/airwallex/intent';
 
-const intentId = 'int_hkdmwj5wkg3nws92hip';
-const clientSecret = 'eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzUyOTYzNzcsImV4cCI6MTYzNTI5OTk3NywiYWNjb3VudF9pZCI6ImJjMjMxMTBhLTI2ZDItNDI0MC05NGVmLWUyMGY4YTI1ZDdlOSIsImRhdGFfY2VudGVyX3JlZ2lvbiI6IkhLIiwiaW50ZW50X2lkIjoiaW50X2hrZG13ajR3a2czbndzOTJoaXAiLCJwYWRjIjoiSEsifQ.K5luE9sDZY7nQtpquoi73XZC7Md8Uf1a7OivaeYvZ18';
+// Dummy request body, TODO: use order
+const requestBody = JSON.stringify({ amount: 100, currency: 'USD' });
 
-const Payment = ({ setPaymentConfirmed } : any) => {
+const Payment = ({ setPaymentConfirmed }: any) => {
   const [cardNumberReady, setCardNumberReady] = useState(false);
   const [cvcReady, setCvcReady] = useState(false);
   const [expiryReady, setExpiryReady] = useState(false);
@@ -32,6 +34,16 @@ const Payment = ({ setPaymentConfirmed } : any) => {
   });
 
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('Card');
+
+  const [intentId, setIntentId] = useState('');
+  const [clientSecret, setClientSecret] = useState('');
+  useEffect(() => {
+    login().then((loginRes) => createPaymentIntent(requestBody, loginRes.data.token)
+      .then((intentRes) => {
+        setIntentId(intentRes.data.id);
+        setClientSecret(intentRes.data.client_secret);
+      }));
+  });
 
   useEffect(() => {
     loadAirwallex({
@@ -155,6 +167,7 @@ const Payment = ({ setPaymentConfirmed } : any) => {
       <div>
         {paymentMethods.map((method) => (
           <PaymentMethodSelectCard
+            key={method}
             paymentMethod={method}
             selected={method === selectedPaymentMethod}
             onClick={() => handlePaymentMethodSelect(method)}
@@ -166,38 +179,38 @@ const Payment = ({ setPaymentConfirmed } : any) => {
 
       {errorMessage.length > 0 && <p id="error">{errorMessage}</p>}
 
-      {selectedPaymentMethod === 'Card'
-        ? (
-          <div style={{ display: allElementsReady ? 'block' : 'none' }}>
+      {selectedPaymentMethod === 'Card' ? (
+        <div style={{ display: allElementsReady ? 'block' : 'none' }}>
+          <div>
+            <div>Card number</div>
+            <div id="cardNumber" className={styles.input} />
+            <p>{inputErrorMessage.cardNumber}</p>
+          </div>
+          <div>
             <div>
-              <div>Card number</div>
-              <div id="cardNumber" className={styles.input} />
-              <p>{inputErrorMessage.cardNumber}</p>
+              <div>Expiry</div>
+              <div id="expiry" className={styles.input} />
+              <p>{inputErrorMessage.expiry}</p>
             </div>
             <div>
-              <div>
-                <div>Expiry</div>
-                <div id="expiry" className={styles.input} />
-                <p>{inputErrorMessage.expiry}</p>
-              </div>
-              <div>
-                <div>Cvc</div>
-                <div id="cvc" className={styles.input} />
-                <p>{inputErrorMessage.cvc}</p>
-              </div>
-            </div>
-            <div>
-              <PaymentBackButton onClick={handleBackButton} />
-              <PaymentConfirmButton
-                onClick={handleConfirm}
-                disabled={!allElementsComplete || isSubmitting}
-                label={isSubmitting ? 'Loading' : 'Confirm payment'}
-                total="$102.50"
-              />
+              <div>Cvc</div>
+              <div id="cvc" className={styles.input} />
+              <p>{inputErrorMessage.cvc}</p>
             </div>
           </div>
-        )
-        : <p>Payment method not supported yet</p>}
+          <div>
+            <PaymentBackButton onClick={handleBackButton} />
+            <PaymentConfirmButton
+              onClick={handleConfirm}
+              disabled={!allElementsComplete || isSubmitting}
+              label={isSubmitting ? 'Loading' : 'Confirm payment'}
+              total="$102.50"
+            />
+          </div>
+        </div>
+      ) : (
+        <p>Payment method not supported yet</p>
+      )}
     </div>
   );
 };
