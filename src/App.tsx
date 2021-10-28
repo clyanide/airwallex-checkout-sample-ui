@@ -1,13 +1,22 @@
 import React from 'react';
-import { CheckoutNavBar } from './components/navigation';
-import { PaymentMethodSelect } from './components/select';
-import { PaymentBackButton, PaymentConfirmButton } from './components/buttons';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+} from 'react-router-dom';
+
 import Checkout from './pages/Checkout/Checkout';
 
 function App() {
-  const paymentMethods = ['Card', 'Paypal', 'WeChat'];
   return (
-    <Checkout />
+    <Router>
+      <Switch>
+        <Route exact path="/checkout" component={Checkout} />
+        <Route path="/"><Redirect to="/checkout" /></Route>
+      </Switch>
+    </Router>
   );
 }
 
