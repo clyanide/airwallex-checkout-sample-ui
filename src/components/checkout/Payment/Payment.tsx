@@ -12,7 +12,7 @@ import styles from './Payment.module.scss';
 const intentId = 'int_hkdmwj5wkg3nws92hip';
 const clientSecret = 'eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzUyOTYzNzcsImV4cCI6MTYzNTI5OTk3NywiYWNjb3VudF9pZCI6ImJjMjMxMTBhLTI2ZDItNDI0MC05NGVmLWUyMGY4YTI1ZDdlOSIsImRhdGFfY2VudGVyX3JlZ2lvbiI6IkhLIiwiaW50ZW50X2lkIjoiaW50X2hrZG13ajR3a2czbndzOTJoaXAiLCJwYWRjIjoiSEsifQ.K5luE9sDZY7nQtpquoi73XZC7Md8Uf1a7OivaeYvZ18';
 
-const Payment = () => {
+const Payment = ({ setPaymentConfirmed } : any) => {
   const [cardNumberReady, setCardNumberReady] = useState(false);
   const [cvcReady, setCvcReady] = useState(false);
   const [expiryReady, setExpiryReady] = useState(false);
@@ -139,7 +139,8 @@ const Payment = () => {
   };
 
   const handleBackButton = () => {
-    window.alert('You cannot go back as it extends beyond the scope of this demo');
+    setPaymentConfirmed(true);
+    // window.alert('You cannot go back as it extends beyond the scope of this demo');
   };
 
   const allElementsReady = cardNumberReady && cvcReady && expiryReady;
