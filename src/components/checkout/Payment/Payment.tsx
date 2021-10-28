@@ -188,13 +188,13 @@ const Payment = ({ setPaymentConfirmed, order }: any) => {
       {errorMessage.length > 0 && <p id="error">{errorMessage}</p>}
 
       {selectedPaymentMethod === 'Card' ? (
-        <div style={{ display: allElementsReady ? 'block' : 'none' }}>
+        <div className={allElementsReady ? styles.fields : styles.hide}>
           <div>
             <div>Card number</div>
             <div id="cardNumber" className={styles.input} />
             <p>{inputErrorMessage.cardNumber}</p>
           </div>
-          <div>
+          <div className={styles.row2}>
             <div>
               <div>Expiry</div>
               <div id="expiry" className={styles.input} />
@@ -206,7 +206,7 @@ const Payment = ({ setPaymentConfirmed, order }: any) => {
               <p>{inputErrorMessage.cvc}</p>
             </div>
           </div>
-          <div>
+          <div className={styles.buttons}>
             <PaymentBackButton onClick={handleBackButton} />
             <PaymentConfirmButton
               onClick={handleConfirm}

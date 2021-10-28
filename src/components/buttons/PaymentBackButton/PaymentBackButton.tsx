@@ -3,9 +3,12 @@ import { ReactComponent as LeftChevronIcon } from '../../../assets/svg/left-chev
 import styles from './PaymentBackButton.module.scss';
 
 const PaymentBackButton = ({ onClick }: any) => (
-  <button type="button" onClick={onClick}>
-    <LeftChevronIcon />
+  <button type="button" onClick={onClick} className={styles.button}>
+    <div>
+      <LeftChevronIcon />
+    </div>
     Back
+    <div />
   </button>
 );
 
