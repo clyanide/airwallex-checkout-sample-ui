@@ -138,6 +138,10 @@ const Payment = () => {
     setSelectedPaymentMethod(method);
   };
 
+  const handleBackButton = () => {
+    window.alert('You cannot go back as it extends beyond the scope of this demo');
+  };
+
   const allElementsReady = cardNumberReady && cvcReady && expiryReady;
   const allElementsComplete = cardNumberComplete && cvcComplete && expiryComplete;
 
@@ -182,7 +186,7 @@ const Payment = () => {
               </div>
             </div>
             <div>
-              <PaymentBackButton />
+              <PaymentBackButton onClick={handleBackButton} />
               <PaymentConfirmButton
                 onClick={handleConfirm}
                 disabled={!allElementsComplete || isSubmitting}
