@@ -1,3 +1,3 @@
-import PaymentMethodSelect from './PaymentMethodSelect/PaymentMethodSelect';
+import PaymentMethodSelectCard from './PaymentMethodSelectCard/PaymentMethodSelectCard';
 
-export { PaymentMethodSelect };
+export { PaymentMethodSelectCard };

@@ -20,7 +20,7 @@ const INACTIVE_ICONS = {
   three: <ThreeInactiveIcon />,
 };
 
-const CheckoutNavBarButton = ({
+const CheckoutNavBarIndicator = ({
   done, iconNumber, active, caption,
 }: any) => {
   const resolveIcon = () => {
@@ -51,4 +51,4 @@ const CheckoutNavBarButton = ({
   );
 };
 
-export default CheckoutNavBarButton;
+export default CheckoutNavBarIndicator;

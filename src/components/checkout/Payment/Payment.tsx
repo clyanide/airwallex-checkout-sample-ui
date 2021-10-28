@@ -5,7 +5,7 @@ import {
   getElement,
   confirmPaymentIntent,
 } from 'airwallex-payment-elements';
-import { PaymentMethodSelect } from '../../select';
+import { PaymentMethodSelectCard } from '../../select';
 import { PaymentConfirmButton, PaymentBackButton } from '../../buttons';
 import styles from './Payment.module.scss';
 
@@ -30,6 +30,9 @@ const Payment = () => {
     expiry: '',
     cvc: '',
   });
+
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('Card');
+
   useEffect(() => {
     loadAirwallex({
       env: 'demo',
@@ -131,34 +134,34 @@ const Payment = () => {
       });
   };
 
+  const handlePaymentMethodSelect = (method: any) => {
+    setSelectedPaymentMethod(method);
+  };
+
   const allElementsReady = cardNumberReady && cvcReady && expiryReady;
   const allElementsComplete = cardNumberComplete && cvcComplete && expiryComplete;
 
-  const inputStyle = {
-    border: '1px solid',
-    borderRadius: '5px',
-    padding: '5px 10px',
-    marginTop: '8px',
-    height: '28px',
-  };
-
+  // Dummy data, would be retrieved from database and determined by merchant
   const paymentMethods = ['Card', 'Paypal', 'Wechat'];
 
   return (
     <div>
       <p>Payment</p>
       <div>
-        <PaymentMethodSelect
-          paymentMethods={paymentMethods}
-          selectedIndex={1}
-        />
+        {paymentMethods.map((method) => (
+          <PaymentMethodSelectCard
+            paymentMethod={method}
+            selected={method === selectedPaymentMethod}
+            onClick={() => handlePaymentMethodSelect(method)}
+          />
+        ))}
       </div>
 
       {!allElementsReady && <p>Loading...</p>}
 
       {errorMessage.length > 0 && <p id="error">{errorMessage}</p>}
 
-      <div>
+      <div style={{ display: allElementsReady ? 'block' : 'none' }}>
         <div>
           <div>Card number</div>
           <div id="cardNumber" className={styles.input} />
