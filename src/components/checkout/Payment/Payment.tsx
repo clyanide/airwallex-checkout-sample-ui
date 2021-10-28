@@ -14,7 +14,7 @@ import { createPaymentIntent } from '../../../api/airwallex/intent';
 // Dummy request body, TODO: use order
 const requestBody = JSON.stringify({ amount: 100, currency: 'USD' });
 
-const Payment = ({ setPaymentConfirmed }: any) => {
+const Payment = ({ setPaymentConfirmed, order }: any) => {
   const [cardNumberReady, setCardNumberReady] = useState(false);
   const [cvcReady, setCvcReady] = useState(false);
   const [expiryReady, setExpiryReady] = useState(false);
@@ -38,11 +38,16 @@ const Payment = ({ setPaymentConfirmed }: any) => {
   const [intentId, setIntentId] = useState('');
   const [clientSecret, setClientSecret] = useState('');
   useEffect(() => {
-    login().then((loginRes) => createPaymentIntent(requestBody, loginRes.data.token)
-      .then((intentRes) => {
-        setIntentId(intentRes.data.id);
-        setClientSecret(intentRes.data.client_secret);
-      }));
+    try {
+      login().then((loginRes) => createPaymentIntent(requestBody, loginRes.data.token)
+        .then((intentRes) => {
+          setIntentId(intentRes.data.id);
+          setClientSecret(intentRes.data.client_secret);
+        }));
+    } catch (err) {
+      window.alert('There was a problem communicating with the server, please refresh');
+      console.error(err);
+    }
   });
 
   useEffect(() => {
