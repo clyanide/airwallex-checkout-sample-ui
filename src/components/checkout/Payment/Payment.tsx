@@ -52,7 +52,7 @@ const Payment = ({ setPaymentConfirmed, order }: any) => {
       window.alert('There was a problem communicating with the server, please refresh');
       console.error(err);
     }
-  });
+  }, []);
 
   useEffect(() => {
     loadAirwallex({
@@ -189,8 +189,9 @@ const Payment = ({ setPaymentConfirmed, order }: any) => {
           ))}
         </div>
 
+        <p>{inputErrorMessage.cvc}</p>
         {selectedPaymentMethod === 'card' ? (
-          <div className={styles.fields}>
+          <div className={!allElementsReady ? styles.hide : styles.fields}>
             <div className={styles.row1}>
               <div className={styles.label}>Card Number</div>
               <div id="cardNumber" className={inputErrorMessage.cardNumber === '' || inputErrorMessage.cardNumber === undefined ? styles.input : styles.invalid} />
