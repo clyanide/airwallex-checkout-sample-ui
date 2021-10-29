@@ -40,7 +40,11 @@ const BasketSummary = ({ showShipping }: IProps) => {
           </div>
           <div className={styles.total}>
             <h3>Total</h3>
-            <h3>{(Math.round(calculateTotal(cookie.order.products) * 100) / 100).toFixed(2)}</h3>
+            <h3>
+              {(Math.round(calculateTotal(cookie.order.products) * 100) / 100).toFixed(2)}
+              {' '}
+              {cookie.currency}
+            </h3>
           </div>
         </div>
         {showShipping

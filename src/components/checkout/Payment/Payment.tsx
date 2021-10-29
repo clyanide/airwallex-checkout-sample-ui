@@ -12,6 +12,7 @@ import styles from './Payment.module.scss';
 import { login } from '../../../api/airwallex/auth';
 import { createPaymentIntent } from '../../../api/airwallex/intent';
 import { ReactComponent as ErrorIcon } from '../../../assets/svg/exclamation.svg';
+import { TextField } from '../../inputs';
 
 interface IProps {
   setPaymentConfirmed: CallableFunction;
@@ -44,9 +45,11 @@ const Payment = ({ setPaymentConfirmed, handleGoBack }: IProps) => {
   const [clientSecret, setClientSecret] = useState('');
   const [paymentMethods, setIntentPaymentMethods] = useState([]);
 
+  const order = new Cookies().get('order');
+
   useEffect(() => {
     try {
-      login().then((loginRes) => createPaymentIntent(JSON.stringify(new Cookies().get('order')), loginRes.data.token)
+      login().then((loginRes) => createPaymentIntent(JSON.stringify(order), loginRes.data.token)
         .then((intentRes) => {
           setIntentId(intentRes.data.id);
           setClientSecret(intentRes.data.client_secret);
@@ -199,20 +202,31 @@ const Payment = ({ setPaymentConfirmed, handleGoBack }: IProps) => {
         {selectedPaymentMethod === 'card' ? (
           <div className={styles.fields}>
             <div className={styles.row1}>
-              <div className={styles.label}>Card Number</div>
-              <div id="cardNumber" className={inputErrorMessage.cardNumber === '' || inputErrorMessage.cardNumber === undefined ? styles.input : styles.invalid} />
-              <p>{inputErrorMessage.cardNumber !== '' ? inputErrorMessage.cardNumber : null}</p>
+              <TextField
+                id="cardNumber"
+                error={!(inputErrorMessage.cardNumber === ''
+               || inputErrorMessage.cardNumber === undefined)}
+                errorMessage={inputErrorMessage.cardNumber}
+                label="Card Number"
+              />
             </div>
             <div className={styles.row2}>
               <div className={styles.row2wrapper}>
-                <div className={styles.label}>Expiration</div>
-                <div id="expiry" className={inputErrorMessage.expiry === '' || inputErrorMessage.expiry === undefined ? styles.input : styles.invalid} />
-                <p>{inputErrorMessage.expiry !== '' ? inputErrorMessage.expiry : null}</p>
+                <TextField
+                  id="expiry"
+                  error={!(inputErrorMessage.expiry === ''
+               || inputErrorMessage.expiry === undefined)}
+                  errorMessage={inputErrorMessage.expiry}
+                  label="expiration"
+                />
               </div>
               <div className={styles.row2wrapper}>
-                <div className={styles.label}>CVC</div>
-                <div id="cvc" className={inputErrorMessage.cvc === '' || inputErrorMessage.cvc === undefined ? styles.input : styles.invalid} />
-                <p>{inputErrorMessage.cvc !== '' ? inputErrorMessage.cvc : null}</p>
+                <TextField
+                  id="cvc"
+                  error={!(inputErrorMessage.cvc === '' || inputErrorMessage.cvc === undefined)}
+                  errorMessage={inputErrorMessage.cvc}
+                  label="CVC"
+                />
               </div>
             </div>
             <div className={styles.buttons}>
@@ -221,7 +235,7 @@ const Payment = ({ setPaymentConfirmed, handleGoBack }: IProps) => {
                 onClick={handleConfirm}
                 disabled={!allElementsComplete || isSubmitting}
                 label={isSubmitting ? 'Loading' : 'Confirm payment'}
-                total={isSubmitting ? '' : '$102.50'}
+                total={isSubmitting ? '' : `${(Math.round(order.amount * 100) / 100).toFixed(2)}`}
               />
             </div>
             <div className={errorMessage.length > 0 ? styles.error : styles.hide}>
