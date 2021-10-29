@@ -10,6 +10,7 @@ import { PaymentConfirmButton, PaymentBackButton } from '../../buttons';
 import styles from './Payment.module.scss';
 import { login } from '../../../api/airwallex/auth';
 import { createPaymentIntent } from '../../../api/airwallex/intent';
+import { ReactComponent as ErrorIcon } from '../../../assets/svg/exclamation.svg';
 
 // Dummy request body, TODO: use order
 const requestBody = JSON.stringify({ amount: 100, currency: 'USD' });
@@ -184,25 +185,23 @@ const Payment = ({ setPaymentConfirmed, order }: any) => {
           ))}
         </div>
 
-        {errorMessage.length > 0 && <p id="error">{errorMessage}</p>}
-
         {selectedPaymentMethod === 'card' ? (
           <div className={styles.fields}>
             <div className={styles.row1}>
               <div className={styles.label}>Card Number</div>
-              <div id="cardNumber" className={styles.input} />
-              <p>{inputErrorMessage.cardNumber}</p>
+              <div id="cardNumber" className={inputErrorMessage.cardNumber.length === 0 ? styles.input : styles.invalid} />
+              <p>{inputErrorMessage.cardNumber.length > 0 ? inputErrorMessage.cardNumber : null}</p>
             </div>
             <div className={styles.row2}>
               <div className={styles.row2wrapper}>
                 <div className={styles.label}>Expiration</div>
-                <div id="expiry" className={styles.input} />
-                <p>{inputErrorMessage.expiry}</p>
+                <div id="expiry" className={inputErrorMessage.expiry.length === 0 ? styles.input : styles.invalid} />
+                <p>{inputErrorMessage.expiry.length > 0 ? inputErrorMessage.expiry : null}</p>
               </div>
               <div className={styles.row2wrapper}>
                 <div className={styles.label}>CVC</div>
-                <div id="cvc" className={styles.input} />
-                <p>{inputErrorMessage.cvc}</p>
+                <div id="cvc" className={inputErrorMessage.cvc.length === 0 ? styles.input : styles.invalid} />
+                <p>{inputErrorMessage.cvc.length > 0 ? inputErrorMessage.cvc : null}</p>
               </div>
             </div>
             <div className={styles.buttons}>
@@ -213,6 +212,10 @@ const Payment = ({ setPaymentConfirmed, order }: any) => {
                 label={isSubmitting ? 'Loading' : 'Confirm payment'}
                 total="$102.50"
               />
+            </div>
+            <div className={errorMessage.length > 0 ? styles.error : styles.hide}>
+              <div><ErrorIcon /></div>
+              {errorMessage.length > 0 && <p id="error">{errorMessage}</p>}
             </div>
           </div>
         ) : (
