@@ -33,16 +33,19 @@ const Payment = ({ setPaymentConfirmed, order }: any) => {
     cvc: '',
   });
 
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('Card');
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('card');
 
   const [intentId, setIntentId] = useState('');
   const [clientSecret, setClientSecret] = useState('');
+  const [paymentMethods, setIntentPaymentMethods] = useState([]);
+
   useEffect(() => {
     try {
       login().then((loginRes) => createPaymentIntent(requestBody, loginRes.data.token)
         .then((intentRes) => {
           setIntentId(intentRes.data.id);
           setClientSecret(intentRes.data.client_secret);
+          setIntentPaymentMethods(intentRes.data.available_payment_method_types);
         }));
     } catch (err) {
       window.alert('There was a problem communicating with the server, please refresh');
@@ -163,9 +166,6 @@ const Payment = ({ setPaymentConfirmed, order }: any) => {
   const allElementsReady = cardNumberReady && cvcReady && expiryReady;
   const allElementsComplete = cardNumberComplete && cvcComplete && expiryComplete;
 
-  // Dummy data, would be retrieved from database and determined by merchant
-  const paymentMethods = ['Card', 'Paypal', 'Wechat'];
-
   return (
     <div className={styles.body}>
       <p className={styles.heading}>Payment</p>
@@ -186,7 +186,7 @@ const Payment = ({ setPaymentConfirmed, order }: any) => {
 
         {errorMessage.length > 0 && <p id="error">{errorMessage}</p>}
 
-        {selectedPaymentMethod === 'Card' ? (
+        {selectedPaymentMethod === 'card' ? (
           <div className={styles.fields}>
             <div className={styles.row1}>
               <div className={styles.label}>Card Number</div>
