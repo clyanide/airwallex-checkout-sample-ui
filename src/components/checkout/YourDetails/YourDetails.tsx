@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import Cookies from 'universal-cookie';
 import styles from './YourDetails.module.scss';
 import { TextField } from '../../inputs';
@@ -17,6 +17,37 @@ const YourDetails = ({ setDetailsConfirmed }: IProps) => {
   const [shippingDetails, setShippingDetails] = useState({
     number: '', street: '', state: '', city: '', postCode: '', country: '',
   });
+
+  const [inputComplete, setInputComplete] = useState({
+    firstName: false,
+    lastName: false,
+    phone: false,
+    email: false,
+    number: false,
+    street: false,
+    state: false,
+    city: false,
+    postCode: false,
+    country: false,
+  });
+
+  const [inputErrorMessage, setInputErrorMessage] = useState({
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+    number: '',
+    street: '',
+    state: '',
+    city: '',
+    postCode: '',
+    country: '',
+  });
+
+  const allElementsComplete = inputComplete.firstName && inputComplete.lastName
+   && inputComplete.phone && inputComplete.email && inputComplete.number
+  && inputComplete.street && inputComplete.state && inputComplete.city
+  && inputComplete.postCode && inputComplete.country;
 
   const handleNextButton = () => {
     const orderCookie = cookies.get('order');
@@ -50,6 +81,18 @@ const YourDetails = ({ setDetailsConfirmed }: IProps) => {
     setDetailsConfirmed();
   };
 
+  const handleOnChange = (e : ChangeEvent<HTMLInputElement>, type: string, field: string) => {
+    if (type === 'customer') {
+      setCustomerDetails({ ...customerDetails, [field]: e.target.value });
+    } else if (type === 'shipping') {
+      setShippingDetails({ ...shippingDetails, [field]: e.target.value });
+    }
+
+    if (e.target.value !== '') {
+      setInputComplete({ ...inputComplete, [field]: true });
+    } else { setInputComplete({ ...inputComplete, [field]: false }); }
+  };
+
   return (
     <div className={styles.body}>
       <p>Your Details</p>
@@ -61,10 +104,7 @@ const YourDetails = ({ setDetailsConfirmed }: IProps) => {
           errorMessage=""
           mountable={false}
           value={customerDetails.firstName}
-          onChange={(e) => setCustomerDetails({
-            ...customerDetails,
-            firstName: e.target.value,
-          })}
+          onChange={(e) => handleOnChange(e, 'customer', 'firstName')}
         />
         <TextField
           label="Last Name"
@@ -73,10 +113,7 @@ const YourDetails = ({ setDetailsConfirmed }: IProps) => {
           errorMessage=""
           mountable={false}
           value={customerDetails.lastName}
-          onChange={(e) => setCustomerDetails({
-            ...customerDetails,
-            lastName: e.target.value,
-          })}
+          onChange={(e) => handleOnChange(e, 'customer', 'lastName')}
         />
       </div>
       <div className={styles.row2}>
@@ -87,10 +124,7 @@ const YourDetails = ({ setDetailsConfirmed }: IProps) => {
           errorMessage=""
           mountable={false}
           value={customerDetails.phone}
-          onChange={(e) => setCustomerDetails({
-            ...customerDetails,
-            phone: e.target.value,
-          })}
+          onChange={(e) => handleOnChange(e, 'customer', 'phone')}
         />
         <TextField
           label="Email Address"
@@ -99,25 +133,19 @@ const YourDetails = ({ setDetailsConfirmed }: IProps) => {
           errorMessage=""
           mountable={false}
           value={customerDetails.email}
-          onChange={(e) => setCustomerDetails({
-            ...customerDetails,
-            email: e.target.value,
-          })}
+          onChange={(e) => handleOnChange(e, 'customer', 'email')}
         />
       </div>
       <p>Shipping Information</p>
       <div className={styles.row3}>
         <TextField
           label="Street Number"
-          id="streetNumber"
+          id="number"
           error={false}
           errorMessage=""
           mountable={false}
           value={shippingDetails.number}
-          onChange={(e) => setShippingDetails({
-            ...shippingDetails,
-            number: e.target.value,
-          })}
+          onChange={(e) => handleOnChange(e, 'shipping', 'number')}
         />
         <TextField
           label="Street Name"
@@ -126,10 +154,7 @@ const YourDetails = ({ setDetailsConfirmed }: IProps) => {
           errorMessage=""
           mountable={false}
           value={shippingDetails.street}
-          onChange={(e) => setShippingDetails({
-            ...shippingDetails,
-            street: e.target.value,
-          })}
+          onChange={(e) => handleOnChange(e, 'shipping', 'street')}
         />
 
       </div>
@@ -141,10 +166,7 @@ const YourDetails = ({ setDetailsConfirmed }: IProps) => {
           errorMessage=""
           mountable={false}
           value={shippingDetails.state}
-          onChange={(e) => setShippingDetails({
-            ...shippingDetails,
-            state: e.target.value,
-          })}
+          onChange={(e) => handleOnChange(e, 'shipping', 'state')}
         />
         <TextField
           label="City"
@@ -153,10 +175,7 @@ const YourDetails = ({ setDetailsConfirmed }: IProps) => {
           errorMessage=""
           mountable={false}
           value={shippingDetails.city}
-          onChange={(e) => setShippingDetails({
-            ...shippingDetails,
-            city: e.target.value,
-          })}
+          onChange={(e) => handleOnChange(e, 'shipping', 'city')}
         />
         <TextField
           label="Post Code"
@@ -165,10 +184,7 @@ const YourDetails = ({ setDetailsConfirmed }: IProps) => {
           errorMessage=""
           mountable={false}
           value={shippingDetails.postCode}
-          onChange={(e) => setShippingDetails({
-            ...shippingDetails,
-            postCode: e.target.value,
-          })}
+          onChange={(e) => handleOnChange(e, 'shipping', 'postCode')}
         />
       </div>
       <div className={styles.row5}>
@@ -179,10 +195,7 @@ const YourDetails = ({ setDetailsConfirmed }: IProps) => {
           errorMessage=""
           mountable={false}
           value={shippingDetails.country}
-          onChange={(e) => setShippingDetails({
-            ...shippingDetails,
-            country: e.target.value,
-          })}
+          onChange={(e) => handleOnChange(e, 'shipping', 'country')}
         />
         <p>[SelectShippingMethod]</p>
       </div>

@@ -175,7 +175,6 @@ const Payment = ({ setPaymentConfirmed, handleGoBack }: IProps) => {
 
   const handleBackButton = () => {
     handleGoBack();
-    // window.alert('You cannot go back as it extends beyond the scope of this demo');
   };
 
   const allElementsReady = cardNumberReady && cvcReady && expiryReady && paymentMethodsReady;
