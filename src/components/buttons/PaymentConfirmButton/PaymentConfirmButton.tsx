@@ -5,7 +5,7 @@ import styles from './PaymentConfirmButton.module.scss';
 const PaymentConfirmButton = ({
   total, onClick, disabled, label,
 }:any) => (
-  <button type="button" onClick={onClick} className={styles.button}>
+  <button type="button" onClick={disabled ? null : onClick} className={disabled ? styles.inactive : styles.active}>
     <div />
     <div className={styles.label}>
       <p>

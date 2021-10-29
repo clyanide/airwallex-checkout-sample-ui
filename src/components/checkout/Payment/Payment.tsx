@@ -216,7 +216,7 @@ const Payment = ({ setPaymentConfirmed, order }: any) => {
                 onClick={handleConfirm}
                 disabled={!allElementsComplete || isSubmitting}
                 label={isSubmitting ? 'Loading' : 'Confirm payment'}
-                total="$102.50"
+                total={isSubmitting ? '' : '$102.50'}
               />
             </div>
             <div className={errorMessage.length > 0 ? styles.error : styles.hide}>
