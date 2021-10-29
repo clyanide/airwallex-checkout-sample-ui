@@ -2,9 +2,11 @@ import React from 'react';
 import Cookies from 'universal-cookie';
 import styles from './BasketSummary.module.scss';
 
-const items = [{ name: 'Nike Air Max', description: 'Newest air max shoes', price: '$123.45' }, { name: 'Nike Air Max', description: 'Newest air max shoes', price: '$123.45' }, { name: 'Nike Air Max', description: 'Newest air max shoes', price: '$123.45' }, { name: 'Nike Air Max', description: 'Newest air max shoes', price: '$123.45' }, { name: 'Nike Air Max', description: 'Newest air max shoes', price: '$123.45' }, { name: 'Nike Air Max', description: 'Newest air max shoes', price: '$123.45' }];
+interface IProps {
+  showShipping: boolean;
+}
 
-const BasketSummary = () => {
+const BasketSummary = ({ showShipping }: IProps) => {
   const calculateTotal = (products: Array<Record<string, any>>) => {
     let total = 0;
 
@@ -15,6 +17,8 @@ const BasketSummary = () => {
 
   const cookies = new Cookies();
   const cookie = cookies.get('order');
+  const { shipping } = cookie.order;
+  const { address } = shipping;
   return (
     <div className={styles.body}>
       <div className={styles.content}>
@@ -39,13 +43,35 @@ const BasketSummary = () => {
             <h3>{(Math.round(calculateTotal(cookie.order.products) * 100) / 100).toFixed(2)}</h3>
           </div>
         </div>
-        <div className={styles.shipping}>
-          <h3>Shipping Details</h3>
-          <div className={styles.info}>
-            <p className={styles.names}>First Last</p>
-            <p className={styles.address}>20A Oliver Twist Avenue, Auckland, 2014</p>
-          </div>
-        </div>
+        {showShipping
+          ? (
+            <div className={styles.shipping}>
+              <h3>Shipping Details</h3>
+              <div className={styles.info}>
+                <p className={styles.names}>
+                  {shipping.first_name}
+                  {' '}
+                  {shipping.last_name}
+                </p>
+                <p className={styles.address}>
+                  {address.street_number}
+                  {' '}
+                  {address.street}
+                  {', '}
+                  {address.city}
+                  {', '}
+                  {address.postcode}
+                  {', '}
+                  {address.country_code}
+                </p>
+                <p className={styles.address}>
+                  {shipping.shipping_method}
+                  {' delivery'}
+                </p>
+              </div>
+            </div>
+          )
+          : null}
       </div>
     </div>
   );

@@ -157,6 +157,7 @@ const Payment = ({ setPaymentConfirmed, handleGoBack }: IProps) => {
       .catch((error) => {
         setIsSubmitting(false);
         setErrorMessage(error.message ?? JSON.stringify(error));
+        window.alert('Something went wrong, please try again.');
         console.error('There was an error', error);
       });
   };

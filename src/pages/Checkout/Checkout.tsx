@@ -44,7 +44,11 @@ const Checkout = () => {
 
   const getStepComponent = () => {
     if (!detailsConfirmed) {
-      return <YourDetails setDetailsConfirmed={handleDetailsConfirmation} />;
+      return (
+        <YourDetails
+          setDetailsConfirmed={handleDetailsConfirmation}
+        />
+      );
     }
     if (!paymentConfirmed) {
       return (
@@ -67,7 +71,9 @@ const Checkout = () => {
       <div className={styles.content}>
         <CheckoutNavBar active={activeStep} done={doneSteps} />
         {getStepComponent()}
-        <BasketSummary />
+        <BasketSummary
+          showShipping={activeStep !== 1}
+        />
       </div>
     </div>
   );
