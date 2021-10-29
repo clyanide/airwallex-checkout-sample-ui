@@ -5,7 +5,7 @@ const setDummyOrderCookie = () => {
   cookies.set(
     'order',
     {
-      amount: 310.0,
+      amount: 310.00,
       currency: 'USD',
       order: {
         products: [
@@ -14,7 +14,7 @@ const setDummyOrderCookie = () => {
             desc: 'Old school Nike dunks in blue',
             name: 'Nike Dunks Retro',
             quantity: 1,
-            unit_price: 310.0,
+            unit_price: 310.00,
           },
         ],
         shipping: {
