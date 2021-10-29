@@ -194,12 +194,12 @@ const Payment = ({ setPaymentConfirmed, order }: any) => {
               <p>{inputErrorMessage.cardNumber}</p>
             </div>
             <div className={styles.row2}>
-              <div>
+              <div className={styles.row2wrapper}>
                 <div className={styles.label}>Expiration</div>
                 <div id="expiry" className={styles.input} />
                 <p>{inputErrorMessage.expiry}</p>
               </div>
-              <div>
+              <div className={styles.row2wrapper}>
                 <div className={styles.label}>CVC</div>
                 <div id="cvc" className={styles.input} />
                 <p>{inputErrorMessage.cvc}</p>

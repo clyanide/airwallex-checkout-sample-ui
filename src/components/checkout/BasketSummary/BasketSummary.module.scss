@@ -1,0 +1,101 @@
+@mixin card {
+  background-color: #112a49;
+  border-radius: 10px;
+  padding: 30px;
+}
+
+.body {
+  background-color: #021d3e;
+  width: 35%;
+  border-top-left-radius: 20px;
+  padding: 60px;
+}
+
+.content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.basket {
+  @include card;
+  height: 50%;
+  h3 {
+    color: white;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.shipping {
+  @include card;
+  height: 20%;
+  h3 {
+    color: white;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  height: 60%;
+  overflow-y: auto;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.entry {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin: 0;
+  color: white;
+}
+
+.description {
+  margin: 0;
+  font-size: smaller;
+  color: rgb(151, 151, 151);
+}
+
+.price {
+  color: white;
+}
+
+.total {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 30%;
+}
+
+.names {
+  color: #5e728c;
+  margin: 0;
+}
+
+.address {
+  color: #5e728c;
+  margin: 0;
+  margin-top: 10px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+}
