@@ -14,10 +14,11 @@ import { createPaymentIntent } from '../../../api/airwallex/intent';
 import { ReactComponent as ErrorIcon } from '../../../assets/svg/exclamation.svg';
 
 interface IProps {
-  setPaymentConfirmed: CallableFunction
+  setPaymentConfirmed: CallableFunction;
+  handleGoBack: CallableFunction;
 }
 
-const Payment = ({ setPaymentConfirmed }: IProps) => {
+const Payment = ({ setPaymentConfirmed, handleGoBack }: IProps) => {
   const [cardNumberReady, setCardNumberReady] = useState(false);
   const [cvcReady, setCvcReady] = useState(false);
   const [expiryReady, setExpiryReady] = useState(false);
@@ -151,7 +152,7 @@ const Payment = ({ setPaymentConfirmed }: IProps) => {
     })
       .then((response) => {
         setIsSubmitting(false);
-        window.alert(`Confirm success with ${JSON.stringify(response)}`);
+        setPaymentConfirmed();
       })
       .catch((error) => {
         setIsSubmitting(false);
@@ -160,7 +161,7 @@ const Payment = ({ setPaymentConfirmed }: IProps) => {
       });
   };
 
-  const handlePaymentMethodSelect = (method: any) => {
+  const handlePaymentMethodSelect = (method: string) => {
     setSelectedPaymentMethod(method);
     setErrorMessage('');
     setInputErrorMessage({
@@ -169,7 +170,7 @@ const Payment = ({ setPaymentConfirmed }: IProps) => {
   };
 
   const handleBackButton = () => {
-    setPaymentConfirmed();
+    handleGoBack();
     // window.alert('You cannot go back as it extends beyond the scope of this demo');
   };
 

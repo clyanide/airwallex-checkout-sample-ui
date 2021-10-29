@@ -36,12 +36,23 @@ const Checkout = () => {
     setActiveStep(1);
   };
 
+  const handleGoBack = () => {
+    setDetailsConfirmed(false);
+    setDoneSteps({ ...doneSteps, 1: false });
+    setActiveStep(1);
+  };
+
   const getStepComponent = () => {
     if (!detailsConfirmed) {
       return <YourDetails setDetailsConfirmed={handleDetailsConfirmation} />;
     }
     if (!paymentConfirmed) {
-      return <Payment setPaymentConfirmed={handlePaymentConfirmation} />;
+      return (
+        <Payment
+          handleGoBack={handleGoBack}
+          setPaymentConfirmed={handlePaymentConfirmation}
+        />
+      );
     }
     if (paymentConfirmed) {
       return <Confirmation handleOrderPlaced={handleOrderPlaced} />;
