@@ -128,7 +128,7 @@ const Payment = ({ setPaymentConfirmed, order }: any) => {
       window.removeEventListener('onBlur', onBlur);
       window.removeEventListener('onFocus', onFocus);
     };
-  }, []);
+  }, [selectedPaymentMethod]);
 
   const handleConfirm = async () => {
     setIsSubmitting(true);
@@ -157,6 +157,10 @@ const Payment = ({ setPaymentConfirmed, order }: any) => {
 
   const handlePaymentMethodSelect = (method: any) => {
     setSelectedPaymentMethod(method);
+    setErrorMessage('');
+    setInputErrorMessage({
+      ...inputErrorMessage, cardNumber: '', expiry: '', cvc: '',
+    });
   };
 
   const handleBackButton = () => {
@@ -189,19 +193,19 @@ const Payment = ({ setPaymentConfirmed, order }: any) => {
           <div className={styles.fields}>
             <div className={styles.row1}>
               <div className={styles.label}>Card Number</div>
-              <div id="cardNumber" className={inputErrorMessage.cardNumber.length === 0 ? styles.input : styles.invalid} />
-              <p>{inputErrorMessage.cardNumber.length > 0 ? inputErrorMessage.cardNumber : null}</p>
+              <div id="cardNumber" className={inputErrorMessage.cardNumber === '' || inputErrorMessage.cardNumber === undefined ? styles.input : styles.invalid} />
+              <p>{inputErrorMessage.cardNumber !== '' ? inputErrorMessage.cardNumber : null}</p>
             </div>
             <div className={styles.row2}>
               <div className={styles.row2wrapper}>
                 <div className={styles.label}>Expiration</div>
-                <div id="expiry" className={inputErrorMessage.expiry.length === 0 ? styles.input : styles.invalid} />
-                <p>{inputErrorMessage.expiry.length > 0 ? inputErrorMessage.expiry : null}</p>
+                <div id="expiry" className={inputErrorMessage.expiry === '' || inputErrorMessage.expiry === undefined ? styles.input : styles.invalid} />
+                <p>{inputErrorMessage.expiry !== '' ? inputErrorMessage.expiry : null}</p>
               </div>
               <div className={styles.row2wrapper}>
                 <div className={styles.label}>CVC</div>
-                <div id="cvc" className={inputErrorMessage.cvc.length === 0 ? styles.input : styles.invalid} />
-                <p>{inputErrorMessage.cvc.length > 0 ? inputErrorMessage.cvc : null}</p>
+                <div id="cvc" className={inputErrorMessage.cvc === '' || inputErrorMessage.cvc === undefined ? styles.input : styles.invalid} />
+                <p>{inputErrorMessage.cvc !== '' ? inputErrorMessage.cvc : null}</p>
               </div>
             </div>
             <div className={styles.buttons}>
