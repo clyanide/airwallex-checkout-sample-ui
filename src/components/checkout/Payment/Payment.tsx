@@ -156,7 +156,7 @@ const Payment = ({ setPaymentConfirmed, order }: any) => {
   };
 
   const handleBackButton = () => {
-    setPaymentConfirmed(true);
+    setPaymentConfirmed();
     // window.alert('You cannot go back as it extends beyond the scope of this demo');
   };
 

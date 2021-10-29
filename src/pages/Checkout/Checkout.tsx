@@ -14,16 +14,26 @@ const Checkout = ({ order }: any) => {
   const [paymentConfirmed, setPaymentConfirmed] = useState(false);
   const [detailsConfirmed, setDetailsConfirmed] = useState(false);
 
-  const handlePaymentConfirmation = (confirmed: any) => {
-    setPaymentConfirmed(confirmed);
+  const handlePaymentConfirmation = () => {
+    setPaymentConfirmed(true);
     setDoneSteps({ ...doneSteps, 2: true });
     setActiveStep(3);
   };
 
-  const handleDetailsConfirmation = (confirmed: any) => {
-    setDetailsConfirmed(confirmed);
+  const handleDetailsConfirmation = () => {
+    setDetailsConfirmed(true);
     setDoneSteps({ ...doneSteps, 1: true });
     setActiveStep(2);
+  };
+
+  // Would normally take customer back to home page
+  const handleOrderPlaced = () => {
+    setPaymentConfirmed(false);
+    setDetailsConfirmed(false);
+    setDoneSteps({
+      ...doneSteps, 1: false, 2: false, 3: false,
+    });
+    setActiveStep(1);
   };
 
   const getStepComponent = () => {
@@ -34,7 +44,7 @@ const Checkout = ({ order }: any) => {
       return <Payment setPaymentConfirmed={handlePaymentConfirmation} order={order} />;
     }
     if (paymentConfirmed) {
-      return <Confirmation />;
+      return <Confirmation handleOrderPlaced={handleOrderPlaced} />;
     }
 
     return undefined;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styles from './YourDetails.module.scss';
 
 const YourDetails = ({ setDetailsConfirmed }: any) => {
   // Dummy order populated during shopping and completing details and persisted in cookies
@@ -26,10 +27,10 @@ const YourDetails = ({ setDetailsConfirmed }: any) => {
 
   const handleNextButton = () => {
     // TODO: Create intent using order and auth token
-    setDetailsConfirmed(true);
+    setDetailsConfirmed();
   };
   return (
-    <div>
+    <div className={styles.body}>
       <div>Imagine you have already entered your details on this page</div>
       <button type="button" onClick={handleNextButton}>Next</button>
     </div>
