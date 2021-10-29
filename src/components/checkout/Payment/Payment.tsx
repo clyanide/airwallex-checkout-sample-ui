@@ -19,6 +19,7 @@ const Payment = ({ setPaymentConfirmed, order }: any) => {
   const [cardNumberReady, setCardNumberReady] = useState(false);
   const [cvcReady, setCvcReady] = useState(false);
   const [expiryReady, setExpiryReady] = useState(false);
+  const [paymentMethodsReady, setPaymentMethodsReady] = useState(false);
 
   const [cardNumberComplete, setCardNumberComplete] = useState(false);
   const [cvcComplete, setCvcComplete] = useState(false);
@@ -47,6 +48,7 @@ const Payment = ({ setPaymentConfirmed, order }: any) => {
           setIntentId(intentRes.data.id);
           setClientSecret(intentRes.data.client_secret);
           setIntentPaymentMethods(intentRes.data.available_payment_method_types);
+          setPaymentMethodsReady(true);
         }));
     } catch (err) {
       window.alert('There was a problem communicating with the server, please refresh');
@@ -168,7 +170,7 @@ const Payment = ({ setPaymentConfirmed, order }: any) => {
     // window.alert('You cannot go back as it extends beyond the scope of this demo');
   };
 
-  const allElementsReady = cardNumberReady && cvcReady && expiryReady;
+  const allElementsReady = cardNumberReady && cvcReady && expiryReady && paymentMethodsReady;
   const allElementsComplete = cardNumberComplete && cvcComplete && expiryComplete;
 
   return (
@@ -189,9 +191,8 @@ const Payment = ({ setPaymentConfirmed, order }: any) => {
           ))}
         </div>
 
-        <p>{inputErrorMessage.cvc}</p>
         {selectedPaymentMethod === 'card' ? (
-          <div className={!allElementsReady ? styles.hide : styles.fields}>
+          <div className={styles.fields}>
             <div className={styles.row1}>
               <div className={styles.label}>Card Number</div>
               <div id="cardNumber" className={inputErrorMessage.cardNumber === '' || inputErrorMessage.cardNumber === undefined ? styles.input : styles.invalid} />

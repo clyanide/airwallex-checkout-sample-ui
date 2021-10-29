@@ -1,17 +1,17 @@
 .body {
-    background-color: #021d3e;
-    width: 100px;
+  background-color: #021d3e;
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 30px;
+  border-top-right-radius: 20px;
+  align-items: center;
+
+  div {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    padding-top: 30px;
-    border-top-right-radius: 20px;
     align-items: center;
-
-    div {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 20px;
-    }
+    margin-bottom: 20px;
+  }
 }
