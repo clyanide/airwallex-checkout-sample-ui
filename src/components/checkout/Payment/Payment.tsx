@@ -169,56 +169,56 @@ const Payment = ({ setPaymentConfirmed, order }: any) => {
   return (
     <div className={styles.body}>
       <p className={styles.heading}>Payment</p>
-      <div className={styles.methods}>
-        {paymentMethods.map((method) => (
-          <span>
-            <PaymentMethodSelectCard
-              key={method}
-              paymentMethod={method}
-              selected={method === selectedPaymentMethod}
-              onClick={() => handlePaymentMethodSelect(method)}
-            />
-
-          </span>
-        ))}
-      </div>
-
       {!allElementsReady && <p>Loading...</p>}
+      <div className={!allElementsReady ? styles.hide : ''}>
+        <div className={styles.methods}>
+          {paymentMethods.map((method) => (
+            <span key={method}>
+              <PaymentMethodSelectCard
+                paymentMethod={method}
+                selected={method === selectedPaymentMethod}
+                onClick={() => handlePaymentMethodSelect(method)}
+              />
 
-      {errorMessage.length > 0 && <p id="error">{errorMessage}</p>}
-
-      {selectedPaymentMethod === 'Card' ? (
-        <div className={allElementsReady ? styles.fields : styles.hide}>
-          <div className={styles.row1}>
-            <div className={styles.label}>Card Number</div>
-            <div id="cardNumber" className={styles.input} />
-            <p>{inputErrorMessage.cardNumber}</p>
-          </div>
-          <div className={styles.row2}>
-            <div>
-              <div className={styles.label}>Expiration</div>
-              <div id="expiry" className={styles.input} />
-              <p>{inputErrorMessage.expiry}</p>
-            </div>
-            <div>
-              <div className={styles.label}>CVC</div>
-              <div id="cvc" className={styles.input} />
-              <p>{inputErrorMessage.cvc}</p>
-            </div>
-          </div>
-          <div className={styles.buttons}>
-            <PaymentBackButton onClick={handleBackButton} />
-            <PaymentConfirmButton
-              onClick={handleConfirm}
-              disabled={!allElementsComplete || isSubmitting}
-              label={isSubmitting ? 'Loading' : 'Confirm payment'}
-              total="$102.50"
-            />
-          </div>
+            </span>
+          ))}
         </div>
-      ) : (
-        <p>Payment method not supported yet</p>
-      )}
+
+        {errorMessage.length > 0 && <p id="error">{errorMessage}</p>}
+
+        {selectedPaymentMethod === 'Card' ? (
+          <div className={styles.fields}>
+            <div className={styles.row1}>
+              <div className={styles.label}>Card Number</div>
+              <div id="cardNumber" className={styles.input} />
+              <p>{inputErrorMessage.cardNumber}</p>
+            </div>
+            <div className={styles.row2}>
+              <div>
+                <div className={styles.label}>Expiration</div>
+                <div id="expiry" className={styles.input} />
+                <p>{inputErrorMessage.expiry}</p>
+              </div>
+              <div>
+                <div className={styles.label}>CVC</div>
+                <div id="cvc" className={styles.input} />
+                <p>{inputErrorMessage.cvc}</p>
+              </div>
+            </div>
+            <div className={styles.buttons}>
+              <PaymentBackButton onClick={handleBackButton} />
+              <PaymentConfirmButton
+                onClick={handleConfirm}
+                disabled={!allElementsComplete || isSubmitting}
+                label={isSubmitting ? 'Loading' : 'Confirm payment'}
+                total="$102.50"
+              />
+            </div>
+          </div>
+        ) : (
+          <p>Payment method not supported yet</p>
+        )}
+      </div>
     </div>
   );
 };
