@@ -189,19 +189,19 @@ const Payment = ({ setPaymentConfirmed, order }: any) => {
 
       {selectedPaymentMethod === 'Card' ? (
         <div className={allElementsReady ? styles.fields : styles.hide}>
-          <div>
-            <div>Card number</div>
+          <div className={styles.row1}>
+            <div className={styles.label}>Card Number</div>
             <div id="cardNumber" className={styles.input} />
             <p>{inputErrorMessage.cardNumber}</p>
           </div>
           <div className={styles.row2}>
             <div>
-              <div>Expiry</div>
+              <div className={styles.label}>Expiration</div>
               <div id="expiry" className={styles.input} />
               <p>{inputErrorMessage.expiry}</p>
             </div>
             <div>
-              <div>Cvc</div>
+              <div className={styles.label}>CVC</div>
               <div id="cvc" className={styles.input} />
               <p>{inputErrorMessage.cvc}</p>
             </div>

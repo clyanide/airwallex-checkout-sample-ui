@@ -1,13 +1,16 @@
 .input {
-  border: 1px solid;
-  border-radius: 5px;
-  padding: 5px 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  border-color: rgb(182, 182, 182);
+  height: 30px;
   margin-top: 8px;
-  height: 28px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
 }
 
 .body {
-  background-color: pink;
   width: 50%;
   padding-left: 5%;
   padding-right: 5%;
@@ -24,6 +27,7 @@
 .methods {
   display: flex;
   flex-direction: row;
+  margin-top: 60px;
   span {
     margin-right: 40px;
   }
@@ -38,7 +42,12 @@
   display: none;
 }
 
+.row1 {
+  margin-top: 40px;
+}
+
 .row2 {
+  margin-top: 15px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -48,4 +57,11 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: 40px;
+}
+
+.label {
+  padding-left: 10px;
+  font-size: small;
+  color: rgb(202, 202, 202);
 }
