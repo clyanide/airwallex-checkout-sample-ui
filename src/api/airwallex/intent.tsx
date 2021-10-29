@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const createPaymentIntent = (requestBody: string, token: string) => axios
   .request({
-    url: 'http://localhost:4000/api/intent/create',
+    url: `${process.env.REACT_APP_BASE_URL}/intent/create`,
     method: 'post',
     headers: {
       'Content-Type': 'application/json',
