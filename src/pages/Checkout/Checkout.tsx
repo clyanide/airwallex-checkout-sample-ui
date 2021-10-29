@@ -8,7 +8,7 @@ import {
 import { CheckoutNavBar, Header } from '../../components/navigation';
 import styles from './Checkout.module.scss';
 
-const Checkout = ({ order }: any) => {
+const Checkout = () => {
   const [activeStep, setActiveStep] = useState(1);
   const [doneSteps, setDoneSteps] = useState({ 1: false, 2: false, 3: false });
   const [paymentConfirmed, setPaymentConfirmed] = useState(false);
@@ -41,7 +41,7 @@ const Checkout = ({ order }: any) => {
       return <YourDetails setDetailsConfirmed={handleDetailsConfirmation} />;
     }
     if (!paymentConfirmed) {
-      return <Payment setPaymentConfirmed={handlePaymentConfirmation} order={order} />;
+      return <Payment setPaymentConfirmed={handlePaymentConfirmation} />;
     }
     if (paymentConfirmed) {
       return <Confirmation handleOrderPlaced={handleOrderPlaced} />;

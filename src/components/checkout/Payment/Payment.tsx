@@ -5,6 +5,7 @@ import {
   getElement,
   confirmPaymentIntent,
 } from 'airwallex-payment-elements';
+import Cookies from 'universal-cookie';
 import { PaymentMethodSelectCard } from '../../select';
 import { PaymentConfirmButton, PaymentBackButton } from '../../buttons';
 import styles from './Payment.module.scss';
@@ -12,10 +13,7 @@ import { login } from '../../../api/airwallex/auth';
 import { createPaymentIntent } from '../../../api/airwallex/intent';
 import { ReactComponent as ErrorIcon } from '../../../assets/svg/exclamation.svg';
 
-// Dummy request body, TODO: use order
-const requestBody = JSON.stringify({ amount: 100, currency: 'USD' });
-
-const Payment = ({ setPaymentConfirmed, order }: any) => {
+const Payment = ({ setPaymentConfirmed }: any) => {
   const [cardNumberReady, setCardNumberReady] = useState(false);
   const [cvcReady, setCvcReady] = useState(false);
   const [expiryReady, setExpiryReady] = useState(false);
@@ -43,12 +41,13 @@ const Payment = ({ setPaymentConfirmed, order }: any) => {
 
   useEffect(() => {
     try {
-      login().then((loginRes) => createPaymentIntent(requestBody, loginRes.data.token)
+      login().then((loginRes) => createPaymentIntent(JSON.stringify(new Cookies().get('order')), loginRes.data.token)
         .then((intentRes) => {
           setIntentId(intentRes.data.id);
           setClientSecret(intentRes.data.client_secret);
           setIntentPaymentMethods(intentRes.data.available_payment_method_types);
           setPaymentMethodsReady(true);
+          console.log(intentRes.data);
         }));
     } catch (err) {
       window.alert('There was a problem communicating with the server, please refresh');

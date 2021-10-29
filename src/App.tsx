@@ -8,12 +8,19 @@ import {
 
 import Checkout from './pages/Checkout/Checkout';
 
+import { setDummyOrderCookie } from './dummy/cookies'; // Simulates customer adding items to cart during shopping
+
 function App() {
+  setDummyOrderCookie();
   return (
     <Router>
       <Switch>
-        <Route exact path="/checkout"><Checkout /></Route>
-        <Route path="/"><Redirect to="/checkout" /></Route>
+        <Route exact path="/checkout">
+          <Checkout />
+        </Route>
+        <Route path="/">
+          <Redirect to="/checkout" />
+        </Route>
       </Switch>
     </Router>
   );
