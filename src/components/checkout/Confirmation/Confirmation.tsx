@@ -2,7 +2,11 @@ import React from 'react';
 import styles from './Confirmation.module.scss';
 import { ReactComponent as CheckIcon } from '../../../assets/svg/check.svg';
 
-const Confirmation = ({ handleOrderPlaced }: any) => {
+interface IProps {
+  handleOrderPlaced: CallableFunction
+}
+
+const Confirmation = ({ handleOrderPlaced }: IProps) => {
   const handleContinueButton = () => { handleOrderPlaced(); };
   return (
     <div className={styles.body}>

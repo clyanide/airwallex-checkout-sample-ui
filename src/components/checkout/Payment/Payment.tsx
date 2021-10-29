@@ -13,7 +13,11 @@ import { login } from '../../../api/airwallex/auth';
 import { createPaymentIntent } from '../../../api/airwallex/intent';
 import { ReactComponent as ErrorIcon } from '../../../assets/svg/exclamation.svg';
 
-const Payment = ({ setPaymentConfirmed }: any) => {
+interface IProps {
+  setPaymentConfirmed: CallableFunction
+}
+
+const Payment = ({ setPaymentConfirmed }: IProps) => {
   const [cardNumberReady, setCardNumberReady] = useState(false);
   const [cvcReady, setCvcReady] = useState(false);
   const [expiryReady, setExpiryReady] = useState(false);

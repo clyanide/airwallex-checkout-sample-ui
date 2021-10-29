@@ -2,7 +2,12 @@ import React from 'react';
 import { CheckoutNavBarIndicator } from '..';
 import styles from './CheckoutNavBar.module.scss';
 
-const CheckoutNavBar = ({ active, done }: any) => (
+interface IProps {
+  active: number;
+  done: Record<number, boolean>;
+}
+
+const CheckoutNavBar = ({ active, done }: IProps) => (
   <div className={styles.body}>
     <div>
       <CheckoutNavBarIndicator iconNumber={1} active={active === 1} done={done[1]} caption="Your details" />

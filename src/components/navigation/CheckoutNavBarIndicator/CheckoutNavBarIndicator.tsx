@@ -20,9 +20,16 @@ const INACTIVE_ICONS = {
   three: <ThreeInactiveIcon />,
 };
 
+interface IProps {
+  done: boolean;
+  iconNumber: number;
+  active: boolean;
+  caption: string;
+}
+
 const CheckoutNavBarIndicator = ({
   done, iconNumber, active, caption,
-}: any) => {
+}: IProps) => {
   const resolveIcon = () => {
     if (done) {
       return <DoneIcon />;

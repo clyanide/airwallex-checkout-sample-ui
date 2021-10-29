@@ -1,9 +1,11 @@
 import React from 'react';
-import Cookies from 'universal-cookie';
 import styles from './YourDetails.module.scss';
 
-const YourDetails = ({ setDetailsConfirmed }: any) => {
-  const cookies = new Cookies();
+interface IProps {
+  setDetailsConfirmed: CallableFunction
+}
+
+const YourDetails = ({ setDetailsConfirmed }: IProps) => {
   const handleNextButton = () => {
     setDetailsConfirmed();
   };
