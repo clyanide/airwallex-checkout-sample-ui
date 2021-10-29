@@ -208,6 +208,7 @@ const Payment = ({ setPaymentConfirmed, handleGoBack }: IProps) => {
                || inputErrorMessage.cardNumber === undefined)}
                 errorMessage={inputErrorMessage.cardNumber}
                 label="Card Number"
+                mountable
               />
             </div>
             <div className={styles.row2}>
@@ -218,6 +219,7 @@ const Payment = ({ setPaymentConfirmed, handleGoBack }: IProps) => {
                || inputErrorMessage.expiry === undefined)}
                   errorMessage={inputErrorMessage.expiry}
                   label="expiration"
+                  mountable
                 />
               </div>
               <div className={styles.row2wrapper}>
@@ -226,6 +228,7 @@ const Payment = ({ setPaymentConfirmed, handleGoBack }: IProps) => {
                   error={!(inputErrorMessage.cvc === '' || inputErrorMessage.cvc === undefined)}
                   errorMessage={inputErrorMessage.cvc}
                   label="CVC"
+                  mountable
                 />
               </div>
             </div>
