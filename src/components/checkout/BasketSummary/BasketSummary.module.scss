@@ -1,14 +1,14 @@
 @mixin card {
   background-color: #112a49;
   border-radius: 10px;
-  padding: 30px;
+  padding: 10%;
 }
 
 .body {
   background-color: #021d3e;
   width: 35%;
   border-top-left-radius: 20px;
-  padding: 60px;
+  padding: 5%;
 }
 
 .content {
@@ -21,6 +21,9 @@
 .basket {
   @include card;
   height: 50%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   h3 {
     color: white;
     padding: 0;
@@ -31,6 +34,9 @@
 .shipping {
   @include card;
   height: 20%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
   h3 {
     color: white;
     padding: 0;
@@ -78,9 +84,10 @@
 .total {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  height: 30%;
+  height: 20%;
 }
 
 .names {

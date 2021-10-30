@@ -2,6 +2,7 @@
   width: 50%;
   padding-left: 5%;
   padding-right: 5%;
+  overflow: auto;
 }
 
 .heading {
@@ -26,6 +27,7 @@
 .fields {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
 }
 
 .hide {
@@ -52,6 +54,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
   p {
     font-size: smaller;
     color: red;
@@ -64,11 +67,13 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
   margin-top: 25px;
 }
 
 .row2wrapper {
   width: 40%;
+  min-width: 120px;
 }
 
 .error {

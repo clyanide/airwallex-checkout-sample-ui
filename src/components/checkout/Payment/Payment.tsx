@@ -231,6 +231,7 @@ const Payment = ({ setPaymentConfirmed, handleGoBack }: IProps) => {
               </div>
             </div>
             <div className={styles.buttons}>
+
               <PaymentBackButton onClick={handleBackButton} />
               <PaymentConfirmButton
                 onClick={handleConfirm}
