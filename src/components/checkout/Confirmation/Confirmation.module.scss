@@ -4,9 +4,15 @@
   padding-right: 5%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   overflow: auto;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  height: 100%;
   div {
     height: 100px;
     width: 100px;
@@ -31,4 +37,12 @@
     color: white;
     margin-top: 40px;
   }
+}
+
+.heading {
+  font-size: xx-large;
+  font-weight: bold;
+  padding: 0px;
+  margin: 0;
+  padding: 0;
 }

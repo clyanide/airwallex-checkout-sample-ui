@@ -3,6 +3,7 @@ import Cookies from 'universal-cookie';
 import styles from './YourDetails.module.scss';
 import { TextField } from '../../inputs';
 import { ContinueButton } from '../../buttons';
+import { getCountryCode } from '../../../dummy/inputs';
 
 interface IProps {
   setDetailsConfirmed: CallableFunction
@@ -70,7 +71,7 @@ const YourDetails = ({ setDetailsConfirmed }: IProps) => {
     const { address } = order.shipping;
 
     address.city = city;
-    address.country_code = country; // need to convert to country code
+    address.country_code = getCountryCode(country); // need to convert to country code
     address.postcode = postCode;
     address.state = state;
     address.street = street;

@@ -10,9 +10,12 @@ const Confirmation = ({ handleOrderPlaced }: IProps) => {
   const handleContinueButton = () => { handleOrderPlaced(); };
   return (
     <div className={styles.body}>
-      <div><CheckIcon /></div>
-      <p>Thank you! Your order has been placed.</p>
-      <button onClick={handleContinueButton} type="button">Continue Shopping</button>
+      <p className={styles.heading}>Confirmation</p>
+      <div className={styles.content}>
+        <div><CheckIcon /></div>
+        <p>Thank you! Your order has been placed.</p>
+        <button onClick={handleContinueButton} type="button">Continue Shopping</button>
+      </div>
     </div>
   );
 };

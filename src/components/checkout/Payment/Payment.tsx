@@ -246,7 +246,7 @@ const Payment = ({ setPaymentConfirmed, handleGoBack }: IProps) => {
             </div>
           </div>
         ) : (
-          <p>Payment method not supported yet</p>
+          <p>This payment method is not yet supported.</p>
         )}
       </div>
     </div>
