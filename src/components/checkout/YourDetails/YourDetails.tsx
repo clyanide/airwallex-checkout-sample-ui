@@ -160,7 +160,7 @@ const YourDetails = ({ setDetailsConfirmed }: IProps) => {
 
   const handleOnBlur = (e : ChangeEvent<HTMLInputElement>, field: string) => {
     const errorMessage = inputIsValid(e.target.value, field);
-    if (errorMessage !== '') {
+    if (e.target.value !== '' && errorMessage !== '') {
       setInputErrorMessage({ ...inputErrorMessage, [field]: errorMessage });
       setInputComplete({ ...inputComplete, [field]: false });
     } else {
@@ -171,121 +171,145 @@ const YourDetails = ({ setDetailsConfirmed }: IProps) => {
 
   return (
     <div className={styles.body}>
-      <p>Your Details</p>
-      <div className={styles.row1}>
-        <TextField
-          label="First Name"
-          id="firstName"
-          error={inputErrorMessage.firstName !== ''}
-          errorMessage={inputErrorMessage.firstName}
-          mountable={false}
-          value={customerDetails.firstName}
-          onChange={(e) => handleOnChange(e, 'customer', 'firstName')}
-          onBlur={(e) => handleOnBlur(e, 'firstName')}
-        />
-        <TextField
-          label="Last Name"
-          id="lastName"
-          error={inputErrorMessage.lastName !== ''}
-          errorMessage={inputErrorMessage.lastName}
-          mountable={false}
-          value={customerDetails.lastName}
-          onChange={(e) => handleOnChange(e, 'customer', 'lastName')}
-          onBlur={(e) => handleOnBlur(e, 'lastName')}
-        />
-      </div>
-      <div className={styles.row2}>
-        <TextField
-          label="Phone Number"
-          id="phone"
-          error={inputErrorMessage.phone !== ''}
-          errorMessage={inputErrorMessage.phone}
-          mountable={false}
-          value={customerDetails.phone}
-          onChange={(e) => handleOnChange(e, 'customer', 'phone')}
-          onBlur={(e) => handleOnBlur(e, 'phone')}
-        />
-        <TextField
-          label="Email Address"
-          id="email"
-          error={inputErrorMessage.email !== ''}
-          errorMessage={inputErrorMessage.email}
-          mountable={false}
-          value={customerDetails.email}
-          onChange={(e) => handleOnChange(e, 'customer', 'email')}
-          onBlur={(e) => handleOnBlur(e, 'email')}
-        />
-      </div>
-      <p>Shipping Information</p>
-      <div className={styles.row3}>
-        <TextField
-          label="Street Number"
-          id="number"
-          error={inputErrorMessage.number !== ''}
-          errorMessage={inputErrorMessage.number}
-          mountable={false}
-          value={shippingDetails.number}
-          onChange={(e) => handleOnChange(e, 'shipping', 'number')}
-          onBlur={(e) => handleOnBlur(e, 'number')}
-        />
-        <TextField
-          label="Street Name"
-          id="street"
-          error={inputErrorMessage.street !== ''}
-          errorMessage={inputErrorMessage.street}
-          mountable={false}
-          value={shippingDetails.street}
-          onChange={(e) => handleOnChange(e, 'shipping', 'street')}
-          onBlur={(e) => handleOnBlur(e, 'street')}
-        />
+      <p className={styles.heading}>Your Details</p>
+      <div className={styles.fields}>
+        <div className={styles.row}>
+          <div className={styles.row1}>
+            <TextField
+              label="First Name"
+              id="firstName"
+              error={inputErrorMessage.firstName !== ''}
+              errorMessage={inputErrorMessage.firstName}
+              mountable={false}
+              value={customerDetails.firstName}
+              onChange={(e) => handleOnChange(e, 'customer', 'firstName')}
+              onBlur={(e) => handleOnBlur(e, 'firstName')}
+            />
+          </div>
+          <div className={styles.row1}>
+            <TextField
+              label="Last Name"
+              id="lastName"
+              error={inputErrorMessage.lastName !== ''}
+              errorMessage={inputErrorMessage.lastName}
+              mountable={false}
+              value={customerDetails.lastName}
+              onChange={(e) => handleOnChange(e, 'customer', 'lastName')}
+              onBlur={(e) => handleOnBlur(e, 'lastName')}
+            />
+          </div>
+        </div>
+        <div className={styles.row}>
+          <div className={styles.row2}>
+            <TextField
+              label="Phone Number"
+              id="phone"
+              error={inputErrorMessage.phone !== ''}
+              errorMessage={inputErrorMessage.phone}
+              mountable={false}
+              value={customerDetails.phone}
+              onChange={(e) => handleOnChange(e, 'customer', 'phone')}
+              onBlur={(e) => handleOnBlur(e, 'phone')}
+            />
 
+          </div>
+          <div className={styles.row2}>
+            <TextField
+              label="Email Address"
+              id="email"
+              error={inputErrorMessage.email !== ''}
+              errorMessage={inputErrorMessage.email}
+              mountable={false}
+              value={customerDetails.email}
+              onChange={(e) => handleOnChange(e, 'customer', 'email')}
+              onBlur={(e) => handleOnBlur(e, 'email')}
+            />
+          </div>
+        </div>
+        <p className={styles.subheading}>Shipping Information</p>
+        <div className={styles.row}>
+          <div className={styles.row3}>
+            <TextField
+              label="Street Number"
+              id="number"
+              error={inputErrorMessage.number !== ''}
+              errorMessage={inputErrorMessage.number}
+              mountable={false}
+              value={shippingDetails.number}
+              onChange={(e) => handleOnChange(e, 'shipping', 'number')}
+              onBlur={(e) => handleOnBlur(e, 'number')}
+            />
+          </div>
+          <div className={styles.row3}>
+            <TextField
+              label="Street Name"
+              id="street"
+              error={inputErrorMessage.street !== ''}
+              errorMessage={inputErrorMessage.street}
+              mountable={false}
+              value={shippingDetails.street}
+              onChange={(e) => handleOnChange(e, 'shipping', 'street')}
+              onBlur={(e) => handleOnBlur(e, 'street')}
+            />
+          </div>
+        </div>
+        <div className={styles.row}>
+          <div className={styles.row4}>
+            <TextField
+              label="State"
+              id="state"
+              error={inputErrorMessage.state !== ''}
+              errorMessage={inputErrorMessage.state}
+              mountable={false}
+              value={shippingDetails.state}
+              onChange={(e) => handleOnChange(e, 'shipping', 'state')}
+              onBlur={(e) => handleOnBlur(e, 'state')}
+            />
+          </div>
+
+          <div className={styles.row4}>
+            <TextField
+              label="Post Code"
+              id="postCode"
+              error={inputErrorMessage.postCode !== ''}
+              errorMessage={inputErrorMessage.postCode}
+              mountable={false}
+              value={shippingDetails.postCode}
+              onChange={(e) => handleOnChange(e, 'shipping', 'postCode')}
+              onBlur={(e) => handleOnBlur(e, 'postCode')}
+            />
+          </div>
+        </div>
+        <div className={styles.row}>
+          <div className={styles.row5}>
+            <TextField
+              label="City"
+              id="city"
+              error={inputErrorMessage.city !== ''}
+              errorMessage={inputErrorMessage.city}
+              mountable={false}
+              value={shippingDetails.city}
+              onChange={(e) => handleOnChange(e, 'shipping', 'city')}
+              onBlur={(e) => handleOnBlur(e, 'city')}
+            />
+          </div>
+          <div className={styles.row5}>
+            <TextField
+              label="Country"
+              id="country"
+              error={inputErrorMessage.country !== ''}
+              errorMessage={inputErrorMessage.country}
+              mountable={false}
+              value={shippingDetails.country}
+              onChange={(e) => handleOnChange(e, 'shipping', 'country')}
+              onBlur={(e) => handleOnBlur(e, 'country')}
+            />
+          </div>
+        </div>
+        <div className={styles.buttons}>
+          <ContinueButton onClick={handleNextButton} label="Continue" disabled={!allElementsComplete} />
+        </div>
       </div>
-      <div className={styles.row4}>
-        <TextField
-          label="State"
-          id="state"
-          error={inputErrorMessage.state !== ''}
-          errorMessage={inputErrorMessage.state}
-          mountable={false}
-          value={shippingDetails.state}
-          onChange={(e) => handleOnChange(e, 'shipping', 'state')}
-          onBlur={(e) => handleOnBlur(e, 'state')}
-        />
-        <TextField
-          label="City"
-          id="city"
-          error={inputErrorMessage.city !== ''}
-          errorMessage={inputErrorMessage.city}
-          mountable={false}
-          value={shippingDetails.city}
-          onChange={(e) => handleOnChange(e, 'shipping', 'city')}
-          onBlur={(e) => handleOnBlur(e, 'city')}
-        />
-        <TextField
-          label="Post Code"
-          id="postCode"
-          error={inputErrorMessage.postCode !== ''}
-          errorMessage={inputErrorMessage.postCode}
-          mountable={false}
-          value={shippingDetails.postCode}
-          onChange={(e) => handleOnChange(e, 'shipping', 'postCode')}
-          onBlur={(e) => handleOnBlur(e, 'postCode')}
-        />
-      </div>
-      <div className={styles.row5}>
-        <TextField
-          label="Country"
-          id="country"
-          error={inputErrorMessage.country !== ''}
-          errorMessage={inputErrorMessage.country}
-          mountable={false}
-          value={shippingDetails.country}
-          onChange={(e) => handleOnChange(e, 'shipping', 'country')}
-          onBlur={(e) => handleOnBlur(e, 'country')}
-        />
-        <p>[SelectShippingMethod]</p>
-      </div>
-      <ContinueButton onClick={handleNextButton} label="Continue" disabled={!allElementsComplete} />
     </div>
   );
 };
