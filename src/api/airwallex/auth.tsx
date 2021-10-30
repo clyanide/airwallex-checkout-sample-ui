@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const login = () => axios
   .request({
-    url: `${process.env.REACT_APP_BASE_URL}/auth/login`,
+    url: `${process.env.REACT_APP_BASE_URL}/airwallex/auth/login`,
     method: 'post',
     headers: {
       'api-key': `${process.env.REACT_APP_API_KEY}`,

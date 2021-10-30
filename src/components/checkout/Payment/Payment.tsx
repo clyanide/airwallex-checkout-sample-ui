@@ -185,7 +185,7 @@ const Payment = ({ setPaymentConfirmed, handleGoBack }: IProps) => {
       {!allElementsReady && <p>Loading...</p>}
       <div className={!allElementsReady ? styles.hide : ''}>
         <div className={styles.methods}>
-          {paymentMethods.map((method) => (
+          {paymentMethods.sort().map((method) => (
             <span key={method}>
               <PaymentMethodSelectCard
                 paymentMethod={method}
