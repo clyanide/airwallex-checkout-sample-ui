@@ -48,18 +48,17 @@ const Payment = ({ setPaymentConfirmed, handleGoBack }: IProps) => {
   const order = new Cookies().get('order');
 
   useEffect(() => {
-    try {
-      login().then((loginRes) => createPaymentIntent(JSON.stringify(order), loginRes.data.token)
-        .then((intentRes) => {
-          setIntentId(intentRes.data.id);
-          setClientSecret(intentRes.data.client_secret);
-          setIntentPaymentMethods(intentRes.data.available_payment_method_types);
-          setPaymentMethodsReady(true);
-        }));
-    } catch (err) {
-      window.alert('There was a problem communicating with the server, please refresh');
-      console.error(err);
-    }
+    login().then((loginRes) => createPaymentIntent(JSON.stringify(order), loginRes.data.token)
+      .then((intentRes) => {
+        setIntentId(intentRes.data.id);
+        setClientSecret(intentRes.data.client_secret);
+        setIntentPaymentMethods(intentRes.data.available_payment_method_types);
+        setPaymentMethodsReady(true);
+      })).catch((e) => {
+      console.error(`There was an error ${e}`);
+      window.alert('Could not connect to the server, please try again.');
+      handleGoBack();
+    });
   }, []);
 
   useEffect(() => {
