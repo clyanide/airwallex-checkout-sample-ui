@@ -1,0 +1,30 @@
+.active {
+  width: 55%;
+  height: 60px;
+  border-style: solid;
+  border-radius: 10px;
+  background-color: #ec8a40;
+  border-color: #ec8a40;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.inactive {
+  @extend .active;
+  background-color: #e9b690;
+  border-color: #e9b690;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.label {
+  p {
+    color: white;
+  }
+}

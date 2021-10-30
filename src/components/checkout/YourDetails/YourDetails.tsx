@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import Cookies from 'universal-cookie';
 import styles from './YourDetails.module.scss';
 import { TextField } from '../../inputs';
+import { ContinueButton } from '../../buttons';
 
 interface IProps {
   setDetailsConfirmed: CallableFunction
@@ -81,6 +82,70 @@ const YourDetails = ({ setDetailsConfirmed }: IProps) => {
     setDetailsConfirmed();
   };
 
+  const inputIsValid = (value: string, field: string) => {
+    let errorMessage = '';
+    switch (field) {
+      case 'firstName':
+        // Accept any string
+        break;
+      case 'lastName':
+        // Accept any string
+        break;
+      case 'phone':
+        // Accept numbers
+        if (!/^\d+$/.test(value)) {
+          errorMessage = 'Please enter a valid phone number';
+        }
+        break;
+      case 'email':
+        // Accept valid email format
+        if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)) {
+          errorMessage = 'Please enter a valid email address';
+        }
+        break;
+      case 'number':
+        // Accept alphanumerics and slash
+        if (!/^[A-Za-z0-9/]+$/.test(value)) {
+          errorMessage = 'Please enter a valid street number';
+        }
+        break;
+      case 'street':
+        // Accept letters and spaces
+        if (!/^[A-Za-z\s]+$/.test(value)) {
+          errorMessage = 'Please enter a valid street name';
+        }
+        break;
+      case 'state':
+        // Accept letters and spaces
+        if (!/^[A-Za-z\s]+$/.test(value)) {
+          errorMessage = 'Please enter a valid state';
+        }
+        break;
+      case 'city':
+        // Accept letters and spaces
+        if (!/^[A-Za-z\s]+$/.test(value)) {
+          errorMessage = 'Please enter a valid city';
+        }
+        break;
+      case 'postCode':
+        // Accept numbers
+        if (!/^\d+$/.test(value)) {
+          errorMessage = 'Please enter a valid post code';
+        }
+        break;
+      case 'country':
+        // Accept letters and spaces
+        if (!/^[A-Za-z\s]+$/.test(value)) {
+          errorMessage = 'Please enter a valid country';
+        }
+        break;
+      default:
+        break;
+    }
+
+    return errorMessage;
+  };
+
   const handleOnChange = (e : ChangeEvent<HTMLInputElement>, type: string, field: string) => {
     if (type === 'customer') {
       setCustomerDetails({ ...customerDetails, [field]: e.target.value });
@@ -88,9 +153,20 @@ const YourDetails = ({ setDetailsConfirmed }: IProps) => {
       setShippingDetails({ ...shippingDetails, [field]: e.target.value });
     }
 
-    if (e.target.value !== '') {
+    if (e.target.value !== '' && inputIsValid(e.target.value, field) === '') {
       setInputComplete({ ...inputComplete, [field]: true });
     } else { setInputComplete({ ...inputComplete, [field]: false }); }
+  };
+
+  const handleOnBlur = (e : ChangeEvent<HTMLInputElement>, field: string) => {
+    const errorMessage = inputIsValid(e.target.value, field);
+    if (errorMessage !== '') {
+      setInputErrorMessage({ ...inputErrorMessage, [field]: errorMessage });
+      setInputComplete({ ...inputComplete, [field]: false });
+    } else {
+      setInputErrorMessage({ ...inputErrorMessage, [field]: '' });
+      setInputComplete({ ...inputComplete, [field]: true });
+    }
   };
 
   return (
@@ -100,40 +176,44 @@ const YourDetails = ({ setDetailsConfirmed }: IProps) => {
         <TextField
           label="First Name"
           id="firstName"
-          error={false}
-          errorMessage=""
+          error={inputErrorMessage.firstName !== ''}
+          errorMessage={inputErrorMessage.firstName}
           mountable={false}
           value={customerDetails.firstName}
           onChange={(e) => handleOnChange(e, 'customer', 'firstName')}
+          onBlur={(e) => handleOnBlur(e, 'firstName')}
         />
         <TextField
           label="Last Name"
           id="lastName"
-          error={false}
-          errorMessage=""
+          error={inputErrorMessage.lastName !== ''}
+          errorMessage={inputErrorMessage.lastName}
           mountable={false}
           value={customerDetails.lastName}
           onChange={(e) => handleOnChange(e, 'customer', 'lastName')}
+          onBlur={(e) => handleOnBlur(e, 'lastName')}
         />
       </div>
       <div className={styles.row2}>
         <TextField
           label="Phone Number"
           id="phone"
-          error={false}
-          errorMessage=""
+          error={inputErrorMessage.phone !== ''}
+          errorMessage={inputErrorMessage.phone}
           mountable={false}
           value={customerDetails.phone}
           onChange={(e) => handleOnChange(e, 'customer', 'phone')}
+          onBlur={(e) => handleOnBlur(e, 'phone')}
         />
         <TextField
           label="Email Address"
           id="email"
-          error={false}
-          errorMessage=""
+          error={inputErrorMessage.email !== ''}
+          errorMessage={inputErrorMessage.email}
           mountable={false}
           value={customerDetails.email}
           onChange={(e) => handleOnChange(e, 'customer', 'email')}
+          onBlur={(e) => handleOnBlur(e, 'email')}
         />
       </div>
       <p>Shipping Information</p>
@@ -141,20 +221,22 @@ const YourDetails = ({ setDetailsConfirmed }: IProps) => {
         <TextField
           label="Street Number"
           id="number"
-          error={false}
-          errorMessage=""
+          error={inputErrorMessage.number !== ''}
+          errorMessage={inputErrorMessage.number}
           mountable={false}
           value={shippingDetails.number}
           onChange={(e) => handleOnChange(e, 'shipping', 'number')}
+          onBlur={(e) => handleOnBlur(e, 'number')}
         />
         <TextField
           label="Street Name"
           id="street"
-          error={false}
-          errorMessage=""
+          error={inputErrorMessage.street !== ''}
+          errorMessage={inputErrorMessage.street}
           mountable={false}
           value={shippingDetails.street}
           onChange={(e) => handleOnChange(e, 'shipping', 'street')}
+          onBlur={(e) => handleOnBlur(e, 'street')}
         />
 
       </div>
@@ -162,44 +244,48 @@ const YourDetails = ({ setDetailsConfirmed }: IProps) => {
         <TextField
           label="State"
           id="state"
-          error={false}
-          errorMessage=""
+          error={inputErrorMessage.state !== ''}
+          errorMessage={inputErrorMessage.state}
           mountable={false}
           value={shippingDetails.state}
           onChange={(e) => handleOnChange(e, 'shipping', 'state')}
+          onBlur={(e) => handleOnBlur(e, 'state')}
         />
         <TextField
           label="City"
           id="city"
-          error={false}
-          errorMessage=""
+          error={inputErrorMessage.city !== ''}
+          errorMessage={inputErrorMessage.city}
           mountable={false}
           value={shippingDetails.city}
           onChange={(e) => handleOnChange(e, 'shipping', 'city')}
+          onBlur={(e) => handleOnBlur(e, 'city')}
         />
         <TextField
           label="Post Code"
           id="postCode"
-          error={false}
-          errorMessage=""
+          error={inputErrorMessage.postCode !== ''}
+          errorMessage={inputErrorMessage.postCode}
           mountable={false}
           value={shippingDetails.postCode}
           onChange={(e) => handleOnChange(e, 'shipping', 'postCode')}
+          onBlur={(e) => handleOnBlur(e, 'postCode')}
         />
       </div>
       <div className={styles.row5}>
         <TextField
           label="Country"
           id="country"
-          error={false}
-          errorMessage=""
+          error={inputErrorMessage.country !== ''}
+          errorMessage={inputErrorMessage.country}
           mountable={false}
           value={shippingDetails.country}
           onChange={(e) => handleOnChange(e, 'shipping', 'country')}
+          onBlur={(e) => handleOnBlur(e, 'country')}
         />
         <p>[SelectShippingMethod]</p>
       </div>
-      <button type="button" onClick={handleNextButton}>Continue</button>
+      <ContinueButton onClick={handleNextButton} label="Continue" disabled={!allElementsComplete} />
     </div>
   );
 };

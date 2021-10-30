@@ -10,10 +10,11 @@ interface IProps {
   mountable: boolean;
   value?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
+  onBlur? : ChangeEventHandler<HTMLInputElement>;
 }
 
 const TextField = ({
-  id, error, errorMessage, label, mountable, value, onChange,
+  id, error, errorMessage, label, mountable, value, onChange, onBlur,
 }: IProps) => (
 
   <div>
@@ -32,6 +33,7 @@ const TextField = ({
             value={value}
             onChange={onChange}
             className={!error ? styles.input : styles.invalid}
+            onBlur={onBlur}
           />
           <p>{errorMessage}</p>
         </div>
