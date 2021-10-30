@@ -76,7 +76,6 @@ const YourDetails = ({ setDetailsConfirmed }: IProps) => {
     address.street = street;
     address.street_number = number;
 
-    console.log(orderCookie);
     cookies.set('order', orderCookie, { path: '/' });
 
     setDetailsConfirmed();
@@ -86,10 +85,16 @@ const YourDetails = ({ setDetailsConfirmed }: IProps) => {
     let errorMessage = '';
     switch (field) {
       case 'firstName':
-        // Accept any string
+        // Accept alphanumerics and slash
+        if (!/^[A-Za-z0-9/]+$/.test(value)) {
+          errorMessage = 'Please enter a valid first name';
+        }
         break;
       case 'lastName':
-        // Accept any string
+        // Accept alphanumerics and slash
+        if (!/^[A-Za-z0-9/]+$/.test(value)) {
+          errorMessage = 'Please enter a valid last name';
+        }
         break;
       case 'phone':
         // Accept numbers
@@ -155,16 +160,18 @@ const YourDetails = ({ setDetailsConfirmed }: IProps) => {
 
     if (e.target.value !== '' && inputIsValid(e.target.value, field) === '') {
       setInputComplete({ ...inputComplete, [field]: true });
+      setInputErrorMessage({ ...inputErrorMessage, [field]: '' });
     } else { setInputComplete({ ...inputComplete, [field]: false }); }
   };
 
   const handleOnBlur = (e : ChangeEvent<HTMLInputElement>, field: string) => {
-    const errorMessage = inputIsValid(e.target.value, field);
-    if (e.target.value !== '' && errorMessage !== '') {
+    const errorMessage = ((e.target.value === '') ? '' : inputIsValid(e.target.value, field));
+    if (errorMessage !== '') {
       setInputErrorMessage({ ...inputErrorMessage, [field]: errorMessage });
       setInputComplete({ ...inputComplete, [field]: false });
-    } else {
+    } else if (e.target.value === '') {
       setInputErrorMessage({ ...inputErrorMessage, [field]: '' });
+    } else {
       setInputComplete({ ...inputComplete, [field]: true });
     }
   };

@@ -10,7 +10,7 @@ interface IProps {
 const ContinueButton = ({
   onClick, disabled, label,
 }:IProps) => (
-  <button type="button" onClick={disabled ? () => { console.log('Button disabled'); } : onClick} className={disabled ? styles.inactive : styles.active}>
+  <button type="button" onClick={disabled ? undefined : onClick} className={disabled ? styles.inactive : styles.active}>
     <div />
     <div className={styles.label}>
       <p>

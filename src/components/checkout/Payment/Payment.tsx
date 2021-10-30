@@ -55,7 +55,6 @@ const Payment = ({ setPaymentConfirmed, handleGoBack }: IProps) => {
           setClientSecret(intentRes.data.client_secret);
           setIntentPaymentMethods(intentRes.data.available_payment_method_types);
           setPaymentMethodsReady(true);
-          console.log(intentRes.data);
         }));
     } catch (err) {
       window.alert('There was a problem communicating with the server, please refresh');

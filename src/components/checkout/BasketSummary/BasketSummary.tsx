@@ -31,6 +31,7 @@ const BasketSummary = ({ showShipping }: IProps) => {
                   <p className={styles.title}>{item.name}</p>
                   <p className={styles.description}>{item.desc}</p>
                 </div>
+                <p className={styles.price}>{`x${item.quantity}`}</p>
                 <div className={styles.price}>
                   {(Math.round(item.unit_price * 100) / 100)
                     .toFixed(2)}
