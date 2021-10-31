@@ -5,7 +5,10 @@
 }
 
 .body {
-  background-color: #021d3e;
+  background-image: url('../../../assets/basket-background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
   width: 35%;
   border-top-left-radius: 20px;
   padding: 5%;
