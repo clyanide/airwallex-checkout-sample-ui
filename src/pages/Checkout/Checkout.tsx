@@ -26,7 +26,6 @@ const Checkout = () => {
     setActiveStep(2);
   };
 
-  // Would normally take customer back to home page
   const handleOrderPlaced = () => {
     setPaymentConfirmed(false);
     setDetailsConfirmed(false);
@@ -42,6 +41,7 @@ const Checkout = () => {
     setActiveStep(1);
   };
 
+  // Determine which stage of the checkout process to render
   const getStepComponent = () => {
     if (!detailsConfirmed) {
       return (

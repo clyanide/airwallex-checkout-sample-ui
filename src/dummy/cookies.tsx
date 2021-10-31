@@ -1,5 +1,6 @@
 import Cookies from 'universal-cookie';
 
+// Dummy data from the customers shopping cart
 const setDummyOrderCookie = () => {
   const cookies = new Cookies();
   cookies.set(

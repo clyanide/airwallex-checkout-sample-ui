@@ -47,6 +47,7 @@ const Payment = ({ setPaymentConfirmed, handleGoBack }: IProps) => {
 
   const order = new Cookies().get('order');
 
+  // Create payment intent
   useEffect(() => {
     login().then((loginRes) => createPaymentIntent(JSON.stringify(order), loginRes.data.token)
       .then((intentRes) => {
@@ -61,6 +62,7 @@ const Payment = ({ setPaymentConfirmed, handleGoBack }: IProps) => {
     });
   }, []);
 
+  // Create and mount Airwallex embedded form integration fields and event handlers
   useEffect(() => {
     loadAirwallex({
       env: 'demo',
