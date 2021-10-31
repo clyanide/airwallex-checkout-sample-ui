@@ -19,11 +19,11 @@ This project is a sample ecommerce checkout for the company ShoesForYou. It util
 1. Start the Node.js API server (see instructions [here](https://github.com/clyanide/airwallex-checkout-express-server)). 
 2. Clone this repo and navigate to the root directory
 3. Create a `.env` file in the root directory of the project
-4. In the `.env` file, add the following variables 
+4. In the `.env` file, add the following variables (e.g. `VARIABLE=VALUE`)
     - `PORT` (optional, specifies the port number the app will run on locally)
     - `REACT_APP_API_KEY` (Airwallex API Key)
     - `REACT_APP_CLIENT_ID` (Airwallex client ID)
-    - `REACT_APP_BASE_URL` (API base URL - e.g. `localhost:4000/api`)
+    - `REACT_APP_BASE_URL` (API base URL - e.g. `http://localhost:4000/api`)
 5. `npm install` to install all the required dependencies
 6. `npm start` to start the local server
 
